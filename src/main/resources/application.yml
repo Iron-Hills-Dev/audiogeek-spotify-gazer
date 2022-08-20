@@ -1,0 +1,9 @@
+server:
+  port: ${GAZER_PORT:5010}
+
+logging:
+  level:
+    root: info
+    org.codebusters: ${GAZER_LOG_LEVEL:info}
+
+gazer:
