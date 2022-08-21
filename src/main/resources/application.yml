@@ -10,3 +10,4 @@ logging:
     org.codebusters: ${GAZER_LOG_LEVEL:info}
 
 gazer:
+  message-generator: ${GAZER_MESSAGE_PORT:hello}

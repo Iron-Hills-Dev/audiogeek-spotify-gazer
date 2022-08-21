@@ -1,6 +1,9 @@
 package org.codebusters.audiogeek.spotifygazer.application;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.codebusters.audiogeek.spotifygazer.domain.test.TestMessageGeneratorPort;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,8 +13,11 @@ import static org.springframework.http.ResponseEntity.ok;
 
 @Slf4j
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/test")
 class TestRestAdapter {
+
+    private final TestMessageGeneratorPort messagePort;
 
     @GetMapping(value = "get", produces = TEXT_PLAIN_VALUE)
     public String test() {
@@ -23,7 +29,7 @@ class TestRestAdapter {
     public ResponseEntity<TestResponse> test2() {
         log.info("Processing GET /test/get-json request");
         var response = TestResponse.builder()
-                .message("Hello")
+                .message(messagePort.generateMessage())
                 .id(1)
                 .build();
         return ok(response);
@@ -34,7 +40,7 @@ class TestRestAdapter {
         log.info("Processing GET /test/get-json/{} request", id);
         var response = TestResponse.builder()
                 .id(id)
-                .message("Hello")
+                .message(messagePort.generateMessage())
                 .build();
         return ok(response);
     }
@@ -44,7 +50,7 @@ class TestRestAdapter {
         log.info("Processing POST /test/post-json request: body={}", body);
         var response = TestResponse.builder()
                 .id(body.id())
-                .message("Hello")
+                .message(messagePort.generateMessage())
                 .build();
         return ok(response);
     }
