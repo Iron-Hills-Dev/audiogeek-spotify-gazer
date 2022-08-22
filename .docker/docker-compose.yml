@@ -1,0 +1,46 @@
+version: "3.4"
+services:
+  spotifygazer:
+    build:
+      dockerfile: .docker/Dockerfile
+      context: ../
+    container_name: spotifygazer
+    ports:
+      - "6000:6000"
+    depends_on:
+      - gazer-postgres
+
+  gazer-postgres:
+    image: postgres:14.4
+    container_name: gazer-postgres
+    environment:
+      POSTGRES_PASSWORD: gazer
+      POSTGRES_USER: gazer
+
+  gazer-pgadmin:
+    image: dpage/pgadmin4:6.11
+    container_name: gazer-pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: codebusters@ironhills.dev
+      PGADMIN_DEFAULT_PASSWORD: postgres
+    ports:
+      - "6050:80"
+
+  gazer-openapi:
+    image: swaggerapi/swagger-ui
+    container_name: gazer-openapi
+    volumes:
+      - ../doc/openapi:/usr/share/nginx/html/doc
+    environment:
+      API_URL: doc/spotify-gazer.yaml
+
+  gazer-nginx:
+    build:
+      dockerfile: Dockerfile
+      context: ./nginx/
+    container_name: gazer-nginx
+    ports:
+      - "6080:80"
+    depends_on:
+      - spotifygazer
+      - gazer-openapi
