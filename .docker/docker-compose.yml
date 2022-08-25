@@ -5,6 +5,9 @@ services:
       dockerfile: .docker/Dockerfile
       context: ../
     container_name: spotifygazer
+    environment:
+      JVM_OPTS: -Xmx512m -Xms512m
+      GAZER_LOG_LEVEL: debug
     ports:
       - "6000:6000"
     depends_on:
@@ -32,7 +35,7 @@ services:
     volumes:
       - ../doc/openapi:/usr/share/nginx/html/doc
     environment:
-      API_URL: doc/spotify-gazer.yaml
+      API_URL: doc/spotify-gazer.yml
 
   gazer-nginx:
     build:
