@@ -26,12 +26,19 @@ paths:
                 $ref: '#/components/schemas/GetReleasesResponse'
       parameters:
         - in: query
-          name: entityAmount
+          name: page
           schema:
             type: integer
-          required: false
-          description: Amount of albums you want to get (default 50)
-          example: 50
+          required: true
+          description: Number of page
+          example: 1
+        - in: query
+          name: size
+          schema:
+            type: integer
+          required: true
+          description: Amount of orders on page (max 50)
+          example: 10
 
 components:
   schemas:
@@ -67,11 +74,15 @@ components:
         releaseDate:
           type: string
           description: Album's release date on Spotify
+        genre:
+          type: string
+          description: Genre of album
         link:
           type: string
           description: Link to the album on Spotify app
       example:
         title: "Assassin's Creed 2 (Original Game Soundtrack)"
         artists: [ "Jesper Kyd" ]
-        releaseDate: "2009-11-16"
+        releaseDate: "2009-11-17"
+        genre: "pop"
         link: "https://open.spotify.com/album/09ixa10YNG75H0HDKbMAiZ"
