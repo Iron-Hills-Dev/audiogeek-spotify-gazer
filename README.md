@@ -1,1 +1,1 @@
-# AudioGeek Spotify Gazer
+# AudioGeek Spotify Gazer: The Great Spy Of Spotify

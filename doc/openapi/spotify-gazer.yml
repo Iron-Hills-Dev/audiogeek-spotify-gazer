@@ -1,0 +1,88 @@
+openapi: 3.0.3
+info:
+  title: AudioGeek Spotify Gazer
+  description: Spotify Gazer (releases tracker API) docs
+  version: '1.0'
+paths:
+  /api/v1/get-current-releases:
+    post:
+      summary: Get current music releases
+      description: Get current albums' releases in variety of genres via Spotify API
+      tags:
+        - Tracker
+      requestBody:
+        description: Requested genres
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GetReleasesRequest'
+      responses:
+        '200':
+          description: List of albums
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetReleasesResponse'
+      parameters:
+        - in: query
+          name: page
+          schema:
+            type: integer
+          required: true
+          description: Number of page
+          example: 1
+        - in: query
+          name: size
+          schema:
+            type: integer
+          required: true
+          description: Amount of orders on page (max 50)
+          example: 10
+
+components:
+  schemas:
+    GetReleasesRequest:
+      type: object
+      properties:
+        genres:
+          type: array
+          description: List of requested genres
+          items:
+            type: string
+      example:
+        genres: [ "rock", "pop" ]
+    GetReleasesResponse:
+      type: object
+      properties:
+        albums:
+          type: array
+          description: List of albums
+          items:
+            $ref: "#/components/schemas/Album"
+    Album:
+      type: object
+      properties:
+        title:
+          type: string
+          description: Title of the album
+        artists:
+          type: array
+          description: Artist(s) who created the album
+          items:
+            type: string
+        releaseDate:
+          type: string
+          description: Album's release date on Spotify
+        genre:
+          type: string
+          description: Genre of album
+        link:
+          type: string
+          description: Link to the album on Spotify app
+      example:
+        title: "Assassin's Creed 2 (Original Game Soundtrack)"
+        artists: [ "Jesper Kyd" ]
+        releaseDate: "2009-11-17"
+        genre: "pop"
+        link: "https://open.spotify.com/album/09ixa10YNG75H0HDKbMAiZ"
