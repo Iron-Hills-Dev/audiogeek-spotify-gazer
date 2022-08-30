@@ -1,5 +1,5 @@
 server:
-  port: ${GAZER_PORT:5010}
+  port: ${GAZER_PORT:6000}
 
 logging:
   level:
