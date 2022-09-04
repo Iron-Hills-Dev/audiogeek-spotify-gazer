@@ -2,14 +2,14 @@ package org.codebusters.audiogeek.spotifygazer.infrastructure.spotify.connection
 
 import lombok.Builder;
 import lombok.extern.slf4j.Slf4j;
-import org.codebusters.audiogeek.spotifygazer.domain.spotify.connection.SpotifyArtistResponse;
 import org.codebusters.audiogeek.spotifygazer.domain.spotify.connection.SpotifyConnectionPort;
-import org.codebusters.audiogeek.spotifygazer.domain.spotify.connection.SpotifyNewReleasesResponse;
-import org.codebusters.audiogeek.spotifygazer.domain.spotify.connection.SpotifyTokenResponse;
 import org.codebusters.audiogeek.spotifygazer.domain.spotify.connection.exception.SpotifyConnectionException;
+import org.codebusters.audiogeek.spotifygazer.domain.spotify.connection.model.SpotifyArtistResponse;
+import org.codebusters.audiogeek.spotifygazer.domain.spotify.connection.model.SpotifyNewReleasesResponse;
+import org.codebusters.audiogeek.spotifygazer.domain.spotify.connection.model.SpotifyTokenResponse;
+import org.codebusters.audiogeek.spotifygazer.infrastructure.spotify.connection.newreleases.HttpNewReleasesResponse;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
@@ -17,14 +17,19 @@ import java.util.Base64;
 import java.util.List;
 
 import static java.lang.String.format;
+import static java.util.Optional.ofNullable;
 import static org.codebusters.audiogeek.spotifygazer.domain.util.DtoUtils.convertToString;
+import static org.springframework.http.HttpMethod.GET;
+import static org.springframework.http.HttpMethod.POST;
 import static org.springframework.http.MediaType.APPLICATION_FORM_URLENCODED;
+import static org.springframework.http.MediaType.APPLICATION_JSON;
 
 @Slf4j
 @Builder
 class SpotifyConnectionAdapter implements SpotifyConnectionPort {
 
     private static final String TOKEN_PATH = "/api/token";
+    private static final String NEW_RELEASES_PATH = "/browse/new-releases?offset={offset}&limit={limit}";
 
     private final RestTemplate restTemplate;
     private final String clientId;
@@ -47,11 +52,11 @@ class SpotifyConnectionAdapter implements SpotifyConnectionPort {
             body.add("grant_type", "client_credentials");
             var entity = new HttpEntity<>(body, headers);
             log.trace("Created HttpEntity to send: headers={}, body={}",
-                    convertToString(headers.toSingleValueMap(), List.of("Authorization")),
-                    convertToString(body.toSingleValueMap()));
+                    convertToString(headers, List.of("Authorization")),
+                    convertToString(body));
 
             log.trace("Sending POST request to: {}{}", baseAccountsUrl, TOKEN_PATH);
-            var response = restTemplate.exchange(baseAccountsUrl + TOKEN_PATH, HttpMethod.POST, entity, SpotifyTokenResponse.class);
+            var response = restTemplate.exchange(baseAccountsUrl + TOKEN_PATH, POST, entity, SpotifyTokenResponse.class);
             log.trace("Response collected");
             log.debug("Successfully retrieved Spotify access token");
             return response.getBody();
@@ -61,19 +66,49 @@ class SpotifyConnectionAdapter implements SpotifyConnectionPort {
         }
     }
 
+    @Override
+    public SpotifyNewReleasesResponse getNewReleases(String token, int offset, int limit) {
+        try {
+            log.debug("Getting Spotify new releases: offset={} limit={}", offset, limit);
+
+            var headers = new HttpHeaders();
+            headers.setBearerAuth(token);
+            headers.setAccept(List.of(APPLICATION_JSON));
+
+
+            var entity = new HttpEntity<>(headers);
+            log.trace("Created HTTPEntity: headers={}", convertToString(headers, List.of("Authorization")));
+
+            log.trace("Sending GET request to {}{}", baseApiUrl, NEW_RELEASES_PATH);
+            var response = restTemplate.exchange(
+                    baseApiUrl + NEW_RELEASES_PATH,
+                    GET,
+                    entity,
+                    HttpNewReleasesResponse.class,
+                    offset,
+                    limit);
+            log.trace("Response collected");
+            log.debug("Successfully collected Spotify new releases");
+            return ofNullable(response.getBody())
+                    .map(HttpNewReleasesResponse::albums)
+                    .map(a -> new SpotifyNewReleasesResponse(a.toAlbumList(), a.total()))
+                    .orElseThrow();
+        } catch (Exception e) {
+            log.error("Couldn't get Spotify new releases: messsage={}", e.getMessage());
+            throw new SpotifyConnectionException(e);
+        }
+    }
+
+
+    @Override
+    public SpotifyArtistResponse getArtist(String token, String artistId) {
+
+        return null;
+    }
+
     private String encodeSpotifyCredential() {
         var credentialsBytes = format("%s:%s", clientId, clientSecret).getBytes();
         return Base64.getEncoder()
                 .encodeToString(credentialsBytes);
-    }
-
-    @Override
-    public SpotifyNewReleasesResponse getNewReleases(String token, int offset, int limit) {
-        return null;
-    }
-
-    @Override
-    public SpotifyArtistResponse getArtist(String token, String artistId) {
-        return null;
     }
 }

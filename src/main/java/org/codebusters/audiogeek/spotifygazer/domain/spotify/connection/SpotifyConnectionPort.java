@@ -1,5 +1,9 @@
 package org.codebusters.audiogeek.spotifygazer.domain.spotify.connection;
 
+import org.codebusters.audiogeek.spotifygazer.domain.spotify.connection.model.SpotifyArtistResponse;
+import org.codebusters.audiogeek.spotifygazer.domain.spotify.connection.model.SpotifyNewReleasesResponse;
+import org.codebusters.audiogeek.spotifygazer.domain.spotify.connection.model.SpotifyTokenResponse;
+
 /**
  * Port for connection with Spotify API.
  */

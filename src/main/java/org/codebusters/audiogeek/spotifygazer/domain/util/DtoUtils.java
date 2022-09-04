@@ -1,19 +1,26 @@
 package org.codebusters.audiogeek.spotifygazer.domain.util;
 
-import java.util.HashMap;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import java.util.List;
 import java.util.Map;
 
 public class DtoUtils {
-    public static String convertToString(Map<String, String> object, List<String> reservedFields) {
-        var censoredObject = new HashMap<>(object);
+
+    public static String convertToString(Object object, List<String> reservedFields) {
+        var oMapper = new ObjectMapper();
+        Map<String, Object> map = oMapper.convertValue(object, Map.class);
         for (String reservedField : reservedFields) {
-            censoredObject.replace(reservedField, "[DELETED]");
+            map.replace(reservedField, "[DELETED]");
         }
-        return String.format("%s", censoredObject);
+        return String.format("%s", map);
+
     }
 
-    public static String convertToString(Map<String, String> object) {
-        return String.format("%s", object.toString());
+    public static String convertToString(Object object) {
+        var oMapper = new ObjectMapper();
+        Map<String, Object> map = oMapper.convertValue(object, Map.class);
+        return String.format("%s", map);
+
     }
 }
