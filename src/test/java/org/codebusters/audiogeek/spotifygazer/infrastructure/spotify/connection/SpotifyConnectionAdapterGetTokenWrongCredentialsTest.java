@@ -16,7 +16,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
         "gazer.spotify.client-id=negative",
         "gazer.spotify.client-secret=test"
 })
-public class SpotifyConnectionAdapterWrongCredentialsTest {
+public class SpotifyConnectionAdapterGetTokenWrongCredentialsTest {
 
     private static SpotifyServerMock spotifyServerMock;
 

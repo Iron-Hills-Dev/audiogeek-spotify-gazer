@@ -13,14 +13,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 
+import java.util.List;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 
 @ActiveProfiles("test")
 @SpringBootTest
-class SpotifyConnectionAdapterTest {
+public class SpotifyConnectionAdapterTest {
 
+    public static final String TEST_TOKEN = "BQAA6McbzgjrF4gSYIEawz9WJWckkb-YhR2yaM74Knnu3uUNfH_fLkMXsEFv75pnWXGJO8J5Cm5CQskwSqOob-EBPOKnhWl_yJ-Ez0qr7N7aeixvcO4";
     private static SpotifyServerMock spotifyServerMock;
 
     @Autowired
@@ -46,23 +49,50 @@ class SpotifyConnectionAdapterTest {
         assertThat(token)
                 .isNotNull()
                 .extracting(SpotifyTokenResponse::token)
-                .isEqualTo("BQAA6McbzgjrF4gSYIEawz9WJWckkb-YhR2yaM74Knnu3uUNfH_fLkMXsEFv75pnWXGJO8J5Cm5CQskwSqOob-EBPOKnhWl_yJ-Ez0qr7N7aeixvcO4");
+                .isEqualTo(TEST_TOKEN);
     }
 
     @ParameterizedTest
     @CsvSource({"0,1", "3,2"})
     @DisplayName("should get correct new releases for given parameters")
     void getNewReleasesCorrect(int offset, int limit) {
-        sut.getNewReleases("BQAA6McbzgjrF4gSYIEawz9WJWckkb-YhR2yaM74Knnu3uUNfH_fLkMXsEFv75pnWXGJO8J5Cm5CQskwSqOob-EBPOKnhWl_yJ-Ez0qr7N7aeixvcO4", offset, limit);
+        var response = sut.getNewReleases(TEST_TOKEN, offset, limit);
+
+        assertThat(response.albums().size()).isEqualTo(limit);
     }
 
 
     @Test
     void getNewReleasesWrongLimit() {
-        assertThatThrownBy(() -> sut.getNewReleases("BQAA6McbzgjrF4gSYIEawz9WJWckkb-YhR2yaM74Knnu3uUNfH_fLkMXsEFv75pnWXGJO8J5Cm5CQskwSqOob-EBPOKnhWl_yJ-Ez0qr7N7aeixvcO4", 0, 60))
+        assertThatThrownBy(() -> sut.getNewReleases(TEST_TOKEN, 0, 60))
                 .isInstanceOf(SpotifyConnectionException.class)
                 .hasMessageContaining("400")
                 .hasMessageContaining("Invalid limit");
     }
 
+
+    @Test
+    void getArtistCorrect() {
+        var response = sut.getArtist(TEST_TOKEN, "0QHgL1lAIqAw0HtD7YldmP");
+
+        assertThat(response.id()).isEqualTo("0QHgL1lAIqAw0HtD7YldmP");
+        assertThat(response.genres()).isEqualTo(List.of(
+                "hip hop",
+                "miami hip hop",
+                "pop",
+                "pop rap",
+                "rap",
+                "southern hip hop",
+                "trap"
+        ));
+    }
+
+    @Test
+    void getArtistWrongId() {
+        assertThatThrownBy(() -> sut.getArtist(TEST_TOKEN, "1234"))
+                .isInstanceOf(SpotifyConnectionException.class)
+                .hasMessageContaining("400")
+                .hasMessageContaining("invalid id");
+
+    }
 }

@@ -28,8 +28,9 @@ import static org.springframework.http.MediaType.APPLICATION_JSON;
 @Builder
 class SpotifyConnectionAdapter implements SpotifyConnectionPort {
 
-    private static final String TOKEN_PATH = "/api/token";
-    private static final String NEW_RELEASES_PATH = "/browse/new-releases?offset={offset}&limit={limit}";
+    private static final String TOKEN_URL_PATH = "/api/token";
+    private static final String NEW_RELEASES_URL_PATH = "/browse/new-releases?offset={offset}&limit={limit}";
+    private static final String GET_ARTIST_URL_PATH = "/artists/{artistId}";
 
     private final RestTemplate restTemplate;
     private final String clientId;
@@ -47,6 +48,7 @@ class SpotifyConnectionAdapter implements SpotifyConnectionPort {
             var headers = new HttpHeaders();
             headers.setBasicAuth(spotifyCredential);
             headers.setContentType(APPLICATION_FORM_URLENCODED);
+            headers.setAccept(List.of(APPLICATION_JSON));
 
             var body = new LinkedMultiValueMap<String, String>();
             body.add("grant_type", "client_credentials");
@@ -55,9 +57,13 @@ class SpotifyConnectionAdapter implements SpotifyConnectionPort {
                     convertToString(headers, List.of("Authorization")),
                     convertToString(body));
 
-            log.trace("Sending POST request to: {}{}", baseAccountsUrl, TOKEN_PATH);
-            var response = restTemplate.exchange(baseAccountsUrl + TOKEN_PATH, POST, entity, SpotifyTokenResponse.class);
-            log.trace("Response collected");
+            log.trace("Sending POST request to: {}{}", baseAccountsUrl, TOKEN_URL_PATH);
+            var response = restTemplate.exchange(
+                    baseAccountsUrl + TOKEN_URL_PATH,
+                    POST,
+                    entity,
+                    SpotifyTokenResponse.class);
+            log.trace("Request received");
             log.debug("Successfully retrieved Spotify access token");
             return response.getBody();
         } catch (Exception e) {
@@ -71,30 +77,29 @@ class SpotifyConnectionAdapter implements SpotifyConnectionPort {
         try {
             log.debug("Getting Spotify new releases: offset={} limit={}", offset, limit);
 
-            var headers = new HttpHeaders();
-            headers.setBearerAuth(token);
-            headers.setAccept(List.of(APPLICATION_JSON));
+            var headers = getHeaders(token);
 
 
             var entity = new HttpEntity<>(headers);
             log.trace("Created HTTPEntity: headers={}", convertToString(headers, List.of("Authorization")));
 
-            log.trace("Sending GET request to {}{}", baseApiUrl, NEW_RELEASES_PATH);
+            log.trace("Sending GET request to {}{}", baseApiUrl, NEW_RELEASES_URL_PATH);
             var response = restTemplate.exchange(
-                    baseApiUrl + NEW_RELEASES_PATH,
+                    baseApiUrl + NEW_RELEASES_URL_PATH,
                     GET,
                     entity,
                     HttpNewReleasesResponse.class,
                     offset,
                     limit);
-            log.trace("Response collected");
+            log.trace("Request received");
             log.debug("Successfully collected Spotify new releases");
             return ofNullable(response.getBody())
                     .map(HttpNewReleasesResponse::albums)
                     .map(a -> new SpotifyNewReleasesResponse(a.toAlbumList(), a.total()))
                     .orElseThrow();
         } catch (Exception e) {
-            log.error("Couldn't get Spotify new releases: messsage={}", e.getMessage());
+            log.error("Couldn't get Spotify new releases: offset={} limit={} messsage={}",
+                    offset, limit, e.getMessage());
             throw new SpotifyConnectionException(e);
         }
     }
@@ -102,8 +107,30 @@ class SpotifyConnectionAdapter implements SpotifyConnectionPort {
 
     @Override
     public SpotifyArtistResponse getArtist(String token, String artistId) {
+        try {
+            var headers = getHeaders(token);
 
-        return null;
+            var entity = new HttpEntity<>(headers);
+
+            var response = restTemplate.exchange(
+                    baseApiUrl + GET_ARTIST_URL_PATH,
+                    GET,
+                    entity,
+                    SpotifyArtistResponse.class,
+                    artistId);
+
+            return response.getBody();
+        } catch (Exception e) {
+            log.error("Couldn't get Spotify artist: artistId={}, message={}", artistId, e.getMessage());
+            throw new SpotifyConnectionException(e);
+        }
+    }
+
+    private static HttpHeaders getHeaders(String bearer) {
+        var headers = new HttpHeaders();
+        headers.setBearerAuth(bearer);
+        headers.setAccept(List.of(APPLICATION_JSON));
+        return headers;
     }
 
     private String encodeSpotifyCredential() {
