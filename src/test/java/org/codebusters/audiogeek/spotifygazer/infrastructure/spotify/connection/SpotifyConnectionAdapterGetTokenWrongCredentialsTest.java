@@ -4,6 +4,7 @@ import org.codebusters.audiogeek.spotifygazer.domain.spotify.connection.exceptio
 import org.codebusters.audiogeek.spotifygazer.util.SpotifyServerMock;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -35,6 +36,7 @@ public class SpotifyConnectionAdapterGetTokenWrongCredentialsTest {
     }
 
     @Test
+    @DisplayName("get token - should raise exception when wrong Spotify credentials were given")
     void getTokenWrongCredentials() {
         // when & then
         assertThatThrownBy(() -> sut.getToken())

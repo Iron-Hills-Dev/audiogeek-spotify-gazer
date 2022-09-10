@@ -7,6 +7,7 @@ import java.util.Map;
 
 public class DtoUtils {
 
+    @SuppressWarnings("unchecked")
     public static String convertToString(Object object, List<String> reservedFields) {
         var oMapper = new ObjectMapper();
         Map<String, Object> map = oMapper.convertValue(object, Map.class);

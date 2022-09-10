@@ -41,6 +41,7 @@ public class SpotifyConnectionAdapterTest {
     }
 
     @Test
+    @DisplayName("get token - should get correct bearer token")
     void getTokenCorrect() {
         // when
         var token = sut.getToken();
@@ -54,7 +55,7 @@ public class SpotifyConnectionAdapterTest {
 
     @ParameterizedTest
     @CsvSource({"0,1", "3,2"})
-    @DisplayName("should get correct new releases for given parameters")
+    @DisplayName("get new releases - sshould get correct new releases for given parameters")
     void getNewReleasesCorrect(int offset, int limit) {
         var response = sut.getNewReleases(TEST_TOKEN, offset, limit);
 
@@ -63,6 +64,7 @@ public class SpotifyConnectionAdapterTest {
 
 
     @Test
+    @DisplayName("get new releases - should raise exception when wrong limit was given")
     void getNewReleasesWrongLimit() {
         assertThatThrownBy(() -> sut.getNewReleases(TEST_TOKEN, 0, 60))
                 .isInstanceOf(SpotifyConnectionException.class)
@@ -72,6 +74,7 @@ public class SpotifyConnectionAdapterTest {
 
 
     @Test
+    @DisplayName("get artist - should get correct artist according to ID")
     void getArtistCorrect() {
         var response = sut.getArtist(TEST_TOKEN, "0QHgL1lAIqAw0HtD7YldmP");
 
@@ -88,6 +91,7 @@ public class SpotifyConnectionAdapterTest {
     }
 
     @Test
+    @DisplayName("get artist - should raise exception when wrong ID was given")
     void getArtistWrongId() {
         assertThatThrownBy(() -> sut.getArtist(TEST_TOKEN, "1234"))
                 .isInstanceOf(SpotifyConnectionException.class)
