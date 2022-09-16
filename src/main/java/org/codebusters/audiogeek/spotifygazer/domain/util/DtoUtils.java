@@ -7,12 +7,13 @@ import java.util.Map;
 
 public class DtoUtils {
 
+
     @SuppressWarnings("unchecked")
     public static String convertToString(Object object, List<String> reservedFields) {
-        var oMapper = new ObjectMapper();
-        Map<String, Object> map = oMapper.convertValue(object, Map.class);
+        var mapper = new ObjectMapper();
+        var map = mapper.convertValue(object, Map.class);
         for (String reservedField : reservedFields) {
-            map.replace(reservedField, "[DELETED]");
+            map.replace(reservedField, "██████████████");
         }
         return String.format("%s", map);
 
@@ -20,7 +21,7 @@ public class DtoUtils {
 
     public static String convertToString(Object object) {
         var oMapper = new ObjectMapper();
-        Map<String, Object> map = oMapper.convertValue(object, Map.class);
+        var map = oMapper.convertValue(object, Map.class);
         return String.format("%s", map);
 
     }
