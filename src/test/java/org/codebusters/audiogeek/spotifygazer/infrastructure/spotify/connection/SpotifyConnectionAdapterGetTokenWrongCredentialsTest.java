@@ -17,7 +17,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
         "gazer.spotify.client-id=negative",
         "gazer.spotify.client-secret=test"
 })
-public class SpotifyConnectionAdapterGetTokenWrongCredentialsTest {
+class SpotifyConnectionAdapterGetTokenWrongCredentialsTest {
 
     private static SpotifyServerMock spotifyServerMock;
 
@@ -43,6 +43,5 @@ public class SpotifyConnectionAdapterGetTokenWrongCredentialsTest {
                 .isInstanceOf(SpotifyConnectionException.class)
                 .hasMessageContaining("400")
                 .hasMessageContaining("invalid_client");
-
     }
 }

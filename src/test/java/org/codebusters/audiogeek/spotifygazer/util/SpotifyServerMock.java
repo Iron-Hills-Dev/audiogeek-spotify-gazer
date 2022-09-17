@@ -8,12 +8,12 @@ import java.util.Map;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static java.nio.file.Files.readAllBytes;
-import static org.codebusters.audiogeek.spotifygazer.infrastructure.spotify.connection.SpotifyConnectionAdapterTest.TEST_TOKEN;
 import static org.springframework.http.MediaType.APPLICATION_FORM_URLENCODED_VALUE;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 public class SpotifyServerMock {
 
+    public static final String TOKEN = "BQAA6McbzgjrF4gSYIEawz9WJWckkb-YhR2yaM74Knnu3uUNfH_fLkMXsEFv75pnWXGJO8J5Cm5CQskwSqOob-EBPOKnhWl_yJ-Ez0qr7N7aeixvcO4";
     private static final Path GET_TOKEN_CORRECT_RESPONSE = Path.of("src/test/resources/spotify/connection/get-token/response-correct-token.json");
     private static final Path GET_TOKEN_WRONG_CREDS_RESPONSE = Path.of("src/test/resources/spotify/connection/get-token/response-wrong-creds.json");
     private static final Path NEW_RELEASES_CORRECT_RESPONSE_0_1 = Path.of("src/test/resources/spotify/connection/new-releases/response-correct-0-1.json");
@@ -22,7 +22,7 @@ public class SpotifyServerMock {
     private static final Path GET_ARTIST_CORRECT_RESPONSE_DJKHALED = Path.of("src/test/resources/spotify/connection/get-artist/response-correct-djkhaled.json");
     private static final Path GET_ARTIST_INVALID_ID_RESPONSE = Path.of("src/test/resources/spotify/connection/get-artist/response-invalid-id.json");
     private static final String AUTHORIZATION_HEADER_TITLE = "Authorization";
-    private static final String AUTHORIZATION_HEADER_BEARER_VALUE = "Bearer " + TEST_TOKEN;
+    private static final String AUTHORIZATION_HEADER_BEARER_VALUE = "Bearer " + TOKEN;
     private static final String CONTENT_TYPE_HEADER_TITLE = "Content-Type";
     private static final String ACCEPT_HEADER_TITLE = "Accept";
     private static final String TOKEN_REQUEST_BODY = "grant_type=client_credentials";

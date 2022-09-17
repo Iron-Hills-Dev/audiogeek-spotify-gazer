@@ -21,13 +21,14 @@ import java.nio.file.Path;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.codebusters.audiogeek.spotifygazer.util.SpotifyServerMock.TOKEN;
 
 
 @ActiveProfiles("test")
 @SpringBootTest
-public class SpotifyConnectionAdapterTest {
+class SpotifyConnectionAdapterTest {
 
-    public static final String TEST_TOKEN = "BQAA6McbzgjrF4gSYIEawz9WJWckkb-YhR2yaM74Knnu3uUNfH_fLkMXsEFv75pnWXGJO8J5Cm5CQskwSqOob-EBPOKnhWl_yJ-Ez0qr7N7aeixvcO4";
+    private static final Path ARTIST_MODEL_PATH = Path.of("src/test/resources/spotify/connection/get-artist/model-correct-djkhaled.json");
     private static SpotifyServerMock spotifyServerMock;
 
     @Autowired
@@ -54,7 +55,7 @@ public class SpotifyConnectionAdapterTest {
         assertThat(token)
                 .isNotNull()
                 .extracting(SpotifyTokenResponse::token)
-                .isEqualTo(TEST_TOKEN);
+                .isEqualTo(TOKEN);
     }
 
     @ParameterizedTest
@@ -66,7 +67,7 @@ public class SpotifyConnectionAdapterTest {
         var expectedModel = mapper.readValue(Path.of("src/test/resources/spotify/connection/new-releases", modelFilename).toFile(), SpotifyNewReleasesResponse.class);
 
         // when
-        var response = sut.getNewReleases(TEST_TOKEN, offset, limit);
+        var response = sut.getNewReleases(TOKEN, offset, limit);
 
         // then
         assertThat(response)
@@ -78,7 +79,7 @@ public class SpotifyConnectionAdapterTest {
     @DisplayName("get new releases - should raise exception when wrong limit was given")
     void getNewReleasesWrongLimit() {
         // when & then
-        assertThatThrownBy(() -> sut.getNewReleases(TEST_TOKEN, 0, 60))
+        assertThatThrownBy(() -> sut.getNewReleases(TOKEN, 0, 60))
                 .isInstanceOf(SpotifyConnectionException.class)
                 .hasMessageContaining("400")
                 .hasMessageContaining("Invalid limit");
@@ -90,10 +91,10 @@ public class SpotifyConnectionAdapterTest {
     void getArtistCorrect() throws IOException {
         // given
         var mapper = new ObjectMapper();
-        var expectedModel = mapper.readValue(Path.of("src/test/resources/spotify/connection/get-artist/model-correct-djkhaled.json").toFile(), SpotifyArtistResponse.class);
+        var expectedModel = mapper.readValue(ARTIST_MODEL_PATH.toFile(), SpotifyArtistResponse.class);
 
         // when
-        var response = sut.getArtist(TEST_TOKEN, "0QHgL1lAIqAw0HtD7YldmP");
+        var response = sut.getArtist(TOKEN, "0QHgL1lAIqAw0HtD7YldmP");
 
         // then
         assertThat(response)
@@ -103,10 +104,9 @@ public class SpotifyConnectionAdapterTest {
     @Test
     @DisplayName("get artist - should raise exception when wrong ID was given")
     void getArtistWrongId() {
-        assertThatThrownBy(() -> sut.getArtist(TEST_TOKEN, "1234"))
+        assertThatThrownBy(() -> sut.getArtist(TOKEN, "1234"))
                 .isInstanceOf(SpotifyConnectionException.class)
                 .hasMessageContaining("400")
                 .hasMessageContaining("invalid id");
-
     }
 }

@@ -8,7 +8,6 @@ import org.codebusters.audiogeek.spotifygazer.domain.spotify.connection.model.Sp
 import org.codebusters.audiogeek.spotifygazer.domain.spotify.connection.model.SpotifyNewReleasesResponse;
 import org.codebusters.audiogeek.spotifygazer.domain.spotify.connection.model.SpotifyTokenResponse;
 import org.codebusters.audiogeek.spotifygazer.infrastructure.spotify.connection.newreleases.HttpNewReleasesResponse;
-import org.jetbrains.annotations.NotNull;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.util.LinkedMultiValueMap;
@@ -21,6 +20,7 @@ import java.util.Map;
 import static java.lang.String.format;
 import static java.util.Optional.ofNullable;
 import static org.codebusters.audiogeek.spotifygazer.domain.util.DtoUtils.convertToString;
+import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 import static org.springframework.http.HttpMethod.GET;
 import static org.springframework.http.HttpMethod.POST;
 import static org.springframework.http.MediaType.APPLICATION_FORM_URLENCODED;
@@ -136,7 +136,7 @@ class SpotifyConnectionAdapter implements SpotifyConnectionPort {
         return artist;
     }
 
-    private @NotNull HttpHeaders getHeaders(String bearer) {
+    private HttpHeaders getHeaders(String bearer) {
         var headers = new HttpHeaders();
         headers.setBearerAuth(bearer);
         headers.setAccept(List.of(APPLICATION_JSON));
@@ -149,14 +149,15 @@ class SpotifyConnectionAdapter implements SpotifyConnectionPort {
                 .encodeToString(credentialsBytes);
     }
 
-    private @NotNull HttpEntity<Object> createHttpGetEntity(String spotifyBearerToken) {
+    private HttpEntity<Object> createHttpGetEntity(String spotifyBearerToken) {
         var headers = getHeaders(spotifyBearerToken);
         var entity = new HttpEntity<>(headers);
-        log.trace("Created HTTPEntity: headers={}", convertToString(headers, List.of("Authorization")));
+        log.trace("Created HTTPEntity: headers={}", convertToString(headers, List.of(AUTHORIZATION)));
         return entity;
     }
 
-    private @NotNull HttpEntity<LinkedMultiValueMap<String, String>> createPostHttpEntity(String spotifyClientAuth, LinkedMultiValueMap<String, String> body) {
+    private HttpEntity<LinkedMultiValueMap<String, String>> createPostHttpEntity(
+            String spotifyClientAuth, LinkedMultiValueMap<String, String> body) {
         var headers = new HttpHeaders();
         headers.setBasicAuth(spotifyClientAuth);
         headers.setContentType(APPLICATION_FORM_URLENCODED);
@@ -164,7 +165,7 @@ class SpotifyConnectionAdapter implements SpotifyConnectionPort {
 
         var entity = new HttpEntity<>(body, headers);
         log.trace("Created HttpEntity to send: headers={}, body={}",
-                convertToString(headers, List.of("Authorization")),
+                convertToString(headers, List.of(AUTHORIZATION)),
                 convertToString(body));
         return entity;
     }
