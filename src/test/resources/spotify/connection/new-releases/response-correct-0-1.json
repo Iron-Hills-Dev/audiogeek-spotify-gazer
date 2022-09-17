@@ -1,0 +1,58 @@
+{
+  "albums": {
+    "href": "https://api.spotify.com/v1/browse/new-releases?country=PL&offset=0&limit=1",
+    "items": [
+      {
+        "album_type": "album",
+        "artists": [
+          {
+            "external_urls": {
+              "spotify": "https://open.spotify.com/artist/7l1IUcuGTEXMuD1aN3wFqw"
+            },
+            "href": "https://api.spotify.com/v1/artists/7l1IUcuGTEXMuD1aN3wFqw",
+            "id": "7l1IUcuGTEXMuD1aN3wFqw",
+            "name": "Ralph Kaminski",
+            "type": "artist",
+            "uri": "spotify:artist:7l1IUcuGTEXMuD1aN3wFqw"
+          }
+        ],
+        "available_markets": [
+          "BA"
+        ],
+        "external_urls": {
+          "spotify": "https://open.spotify.com/album/6w3ZDf50XViYqr0cg01o5o"
+        },
+        "href": "https://api.spotify.com/v1/albums/6w3ZDf50XViYqr0cg01o5o",
+        "id": "6w3ZDf50XViYqr0cg01o5o",
+        "images": [
+          {
+            "height": 640,
+            "url": "https://i.scdn.co/image/ab67616d0000b273ac1a1c228a80db636aca1fa7",
+            "width": 640
+          },
+          {
+            "height": 300,
+            "url": "https://i.scdn.co/image/ab67616d00001e02ac1a1c228a80db636aca1fa7",
+            "width": 300
+          },
+          {
+            "height": 64,
+            "url": "https://i.scdn.co/image/ab67616d00004851ac1a1c228a80db636aca1fa7",
+            "width": 64
+          }
+        ],
+        "name": "Bal u Rafała",
+        "release_date": "2022-08-31",
+        "release_date_precision": "day",
+        "total_tracks": 10,
+        "type": "album",
+        "uri": "spotify:album:6w3ZDf50XViYqr0cg01o5o"
+      }
+    ],
+    "limit": 1,
+    "next": "https://api.spotify.com/v1/browse/new-releases?country=PL&offset=1&limit=1",
+    "offset": 0,
+    "previous": null,
+    "total": 100
+  }
+}

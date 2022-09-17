@@ -1,0 +1,17 @@
+{
+  "albums": [
+    {
+      "artists": [
+        {
+          "name": "Ralph Kaminski",
+          "id": "7l1IUcuGTEXMuD1aN3wFqw"
+        }
+      ],
+      "id": "6w3ZDf50XViYqr0cg01o5o",
+      "name": "Bal u Rafała",
+      "releaseDate": "2022-08-31",
+      "link": "https://open.spotify.com/album/6w3ZDf50XViYqr0cg01o5o"
+    }
+  ],
+  "total": 100
+}

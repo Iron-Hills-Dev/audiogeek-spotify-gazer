@@ -1,0 +1,104 @@
+{
+  "albums": {
+    "href": "https://api.spotify.com/v1/browse/new-releases?country=PL&offset=3&limit=2",
+    "items": [
+      {
+        "album_type": "album",
+        "artists": [
+          {
+            "external_urls": {
+              "spotify": "https://open.spotify.com/artist/0FbccBQBb69lfv4arbt6kX"
+            },
+            "href": "https://api.spotify.com/v1/artists/0FbccBQBb69lfv4arbt6kX",
+            "id": "0FbccBQBb69lfv4arbt6kX",
+            "name": "Ofelia",
+            "type": "artist",
+            "uri": "spotify:artist:0FbccBQBb69lfv4arbt6kX"
+          }
+        ],
+        "available_markets": [
+          "BA"
+        ],
+        "external_urls": {
+          "spotify": "https://open.spotify.com/album/0h2V1atRXlogG8xKMgPRKr"
+        },
+        "href": "https://api.spotify.com/v1/albums/0h2V1atRXlogG8xKMgPRKr",
+        "id": "0h2V1atRXlogG8xKMgPRKr",
+        "images": [
+          {
+            "height": 640,
+            "url": "https://i.scdn.co/image/ab67616d0000b273949a5b26e8697625d3adc484",
+            "width": 640
+          },
+          {
+            "height": 300,
+            "url": "https://i.scdn.co/image/ab67616d00001e02949a5b26e8697625d3adc484",
+            "width": 300
+          },
+          {
+            "height": 64,
+            "url": "https://i.scdn.co/image/ab67616d00004851949a5b26e8697625d3adc484",
+            "width": 64
+          }
+        ],
+        "name": "8",
+        "release_date": "2022-09-02",
+        "release_date_precision": "day",
+        "total_tracks": 9,
+        "type": "album",
+        "uri": "spotify:album:0h2V1atRXlogG8xKMgPRKr"
+      },
+      {
+        "album_type": "album",
+        "artists": [
+          {
+            "external_urls": {
+              "spotify": "https://open.spotify.com/artist/6Ad91Jof8Niiw0lGLLi3NW"
+            },
+            "href": "https://api.spotify.com/v1/artists/6Ad91Jof8Niiw0lGLLi3NW",
+            "id": "6Ad91Jof8Niiw0lGLLi3NW",
+            "name": "YUNGBLUD",
+            "type": "artist",
+            "uri": "spotify:artist:6Ad91Jof8Niiw0lGLLi3NW"
+          }
+        ],
+        "available_markets": [
+          "BA"
+        ],
+        "external_urls": {
+          "spotify": "https://open.spotify.com/album/0cdlBfbso4Iyim5XRQFBER"
+        },
+        "href": "https://api.spotify.com/v1/albums/0cdlBfbso4Iyim5XRQFBER",
+        "id": "0cdlBfbso4Iyim5XRQFBER",
+        "images": [
+          {
+            "height": 640,
+            "url": "https://i.scdn.co/image/ab67616d0000b273661c226e74eeed60652291c0",
+            "width": 640
+          },
+          {
+            "height": 300,
+            "url": "https://i.scdn.co/image/ab67616d00001e02661c226e74eeed60652291c0",
+            "width": 300
+          },
+          {
+            "height": 64,
+            "url": "https://i.scdn.co/image/ab67616d00004851661c226e74eeed60652291c0",
+            "width": 64
+          }
+        ],
+        "name": "YUNGBLUD",
+        "release_date": "2022-09-02",
+        "release_date_precision": "day",
+        "total_tracks": 12,
+        "type": "album",
+        "uri": "spotify:album:0cdlBfbso4Iyim5XRQFBER"
+      }
+    ],
+    "limit": 2,
+    "next": "https://api.spotify.com/v1/browse/new-releases?country=PL&offset=5&limit=2",
+    "offset": 3,
+    "previous": "https://api.spotify.com/v1/browse/new-releases?country=PL&offset=1&limit=2",
+    "total": 100
+  }
+}

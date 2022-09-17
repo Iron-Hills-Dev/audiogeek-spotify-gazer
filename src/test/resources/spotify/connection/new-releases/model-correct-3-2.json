@@ -1,0 +1,29 @@
+{
+  "albums": [
+    {
+      "artists": [
+        {
+          "name": "Ofelia",
+          "id": "0FbccBQBb69lfv4arbt6kX"
+        }
+      ],
+      "id": "0h2V1atRXlogG8xKMgPRKr",
+      "name": "8",
+      "releaseDate": "2022-09-02",
+      "link": "https://open.spotify.com/album/0h2V1atRXlogG8xKMgPRKr"
+    },
+    {
+      "artists": [
+        {
+          "name": "YUNGBLUD",
+          "id": "6Ad91Jof8Niiw0lGLLi3NW"
+        }
+      ],
+      "id": "0cdlBfbso4Iyim5XRQFBER",
+      "name": "YUNGBLUD",
+      "releaseDate": "2022-09-02",
+      "link": "https://open.spotify.com/album/0cdlBfbso4Iyim5XRQFBER"
+    }
+  ],
+  "total": 100
+}

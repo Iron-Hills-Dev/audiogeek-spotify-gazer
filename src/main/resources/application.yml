@@ -7,3 +7,8 @@ logging:
     org.codebusters: ${GAZER_LOG_LEVEL:info}
 
 gazer:
+  spotify:
+    client-id: ${GAZER_SPOTIFY_CLIENT_ID}
+    client-secret: ${GAZER_SPOTIFY_CLIENT_SECRET}
+    base-accounts-url: https://accounts.spotify.com
+    base-api-url: https://api.spotify.com/v1

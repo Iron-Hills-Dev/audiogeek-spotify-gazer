@@ -1,0 +1,10 @@
+logging.level:
+  org.codebusters: trace
+
+gazer:
+  spotify:
+    client-id: test
+    client-secret: test
+    base-accounts-url: http://localhost:9999
+    base-api-url: http://localhost:9999/v1
+
