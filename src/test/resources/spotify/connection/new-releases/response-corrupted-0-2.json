@@ -1,0 +1,29 @@
+{
+  "total": 4,
+  "albums": [
+    {
+      "artists": [
+        {
+          "id": "1fZAAHNWdSM5gqbi9o5iEA",
+          "name": "Chivas"
+        }
+      ],
+      "link": "https://open.spotify.com/album/4r0SGmxQ5XgR5nGyyOiO91",
+      "id": "4r0SGmxQ5XgR5nGyyOiO91",
+      "name": "młody say10",
+      "releaseDate": "2022-09-22"
+    },
+    {
+      "artists": [
+        {
+          "id": null,
+          "name": null
+        }
+      ],
+      "link": null,
+      "id": null,
+      "name": null,
+      "releaseDate": null
+    }
+  ]
+}

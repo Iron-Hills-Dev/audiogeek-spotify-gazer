@@ -1,0 +1,114 @@
+{
+  "albums": {
+    "href": "https://api.spotify.com/v1/browse/new-releases?country=PL&offset=2&limit=2",
+    "items": [
+      {
+        "album_type": "album",
+        "artists": [
+          {
+            "external_urls": {
+              "spotify": "https://open.spotify.com/artist/2Upgflj1wOmOVSb7rp0Ba2"
+            },
+            "href": "https://api.spotify.com/v1/artists/2Upgflj1wOmOVSb7rp0Ba2",
+            "id": "2Upgflj1wOmOVSb7rp0Ba2",
+            "name": "Seven Phoenix",
+            "type": "artist",
+            "uri": "spotify:artist:2Upgflj1wOmOVSb7rp0Ba2"
+          },
+          {
+            "external_urls": {
+              "spotify": "https://open.spotify.com/artist/34Atpk8kle8mndOUwKblhK"
+            },
+            "href": "https://api.spotify.com/v1/artists/34Atpk8kle8mndOUwKblhK",
+            "id": "34Atpk8kle8mndOUwKblhK",
+            "name": "Lucassi",
+            "type": "artist",
+            "uri": "spotify:artist:34Atpk8kle8mndOUwKblhK"
+          }
+        ],
+        "available_markets": [
+          "BA"
+        ],
+        "external_urls": {
+          "spotify": "https://open.spotify.com/album/1oPR79ZWitR1bQaBaG37Kn"
+        },
+        "href": "https://api.spotify.com/v1/albums/1oPR79ZWitR1bQaBaG37Kn",
+        "id": "1oPR79ZWitR1bQaBaG37Kn",
+        "images": [
+          {
+            "height": 640,
+            "url": "https://i.scdn.co/image/ab67616d0000b273b843781d72d68189bea29690",
+            "width": 640
+          },
+          {
+            "height": 300,
+            "url": "https://i.scdn.co/image/ab67616d00001e02b843781d72d68189bea29690",
+            "width": 300
+          },
+          {
+            "height": 64,
+            "url": "https://i.scdn.co/image/ab67616d00004851b843781d72d68189bea29690",
+            "width": 64
+          }
+        ],
+        "name": "Acapulco",
+        "release_date": "2022-09-17",
+        "release_date_precision": "day",
+        "total_tracks": 10,
+        "type": "album",
+        "uri": "spotify:album:1oPR79ZWitR1bQaBaG37Kn"
+      },
+      {
+        "album_type": "album",
+        "artists": [
+          {
+            "external_urls": {
+              "spotify": "https://open.spotify.com/artist/5Rl15oVamLq7FbSb0NNBNy"
+            },
+            "href": "https://api.spotify.com/v1/artists/5Rl15oVamLq7FbSb0NNBNy",
+            "id": "5Rl15oVamLq7FbSb0NNBNy",
+            "name": "5 Seconds of Summer",
+            "type": "artist",
+            "uri": "spotify:artist:5Rl15oVamLq7FbSb0NNBNy"
+          }
+        ],
+        "available_markets": [
+          "ZW"
+        ],
+        "external_urls": {
+          "spotify": "https://open.spotify.com/album/26uA5pGrTovBLxikRsMQJ4"
+        },
+        "href": "https://api.spotify.com/v1/albums/26uA5pGrTovBLxikRsMQJ4",
+        "id": "26uA5pGrTovBLxikRsMQJ4",
+        "images": [
+          {
+            "height": 640,
+            "url": "https://i.scdn.co/image/ab67616d0000b273911d0ad5322127c9c4a6a2c2",
+            "width": 640
+          },
+          {
+            "height": 300,
+            "url": "https://i.scdn.co/image/ab67616d00001e02911d0ad5322127c9c4a6a2c2",
+            "width": 300
+          },
+          {
+            "height": 64,
+            "url": "https://i.scdn.co/image/ab67616d00004851911d0ad5322127c9c4a6a2c2",
+            "width": 64
+          }
+        ],
+        "name": "5SOS5",
+        "release_date": "2022-09-23",
+        "release_date_precision": "day",
+        "total_tracks": 19,
+        "type": "album",
+        "uri": "spotify:album:26uA5pGrTovBLxikRsMQJ4"
+      }
+    ],
+    "limit": 2,
+    "next": "https://api.spotify.com/v1/browse/new-releases?country=PL&offset=4&limit=2",
+    "offset": 2,
+    "previous": "https://api.spotify.com/v1/browse/new-releases?country=PL&offset=0&limit=2",
+    "total": 4
+  }
+}

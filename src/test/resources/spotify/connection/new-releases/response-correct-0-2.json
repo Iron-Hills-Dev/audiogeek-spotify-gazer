@@ -1,0 +1,104 @@
+{
+  "albums": {
+    "href": "https://api.spotify.com/v1/browse/new-releases?country=PL&offset=0&limit=2",
+    "items": [
+      {
+        "album_type": "album",
+        "artists": [
+          {
+            "external_urls": {
+              "spotify": "https://open.spotify.com/artist/1fZAAHNWdSM5gqbi9o5iEA"
+            },
+            "href": "https://api.spotify.com/v1/artists/1fZAAHNWdSM5gqbi9o5iEA",
+            "id": "1fZAAHNWdSM5gqbi9o5iEA",
+            "name": "Chivas",
+            "type": "artist",
+            "uri": "spotify:artist:1fZAAHNWdSM5gqbi9o5iEA"
+          }
+        ],
+        "available_markets": [
+          "AD"
+        ],
+        "external_urls": {
+          "spotify": "https://open.spotify.com/album/4r0SGmxQ5XgR5nGyyOiO91"
+        },
+        "href": "https://api.spotify.com/v1/albums/4r0SGmxQ5XgR5nGyyOiO91",
+        "id": "4r0SGmxQ5XgR5nGyyOiO91",
+        "images": [
+          {
+            "height": 640,
+            "url": "https://i.scdn.co/image/ab67616d0000b2732ad4907e7a451077946e1f76",
+            "width": 640
+          },
+          {
+            "height": 300,
+            "url": "https://i.scdn.co/image/ab67616d00001e022ad4907e7a451077946e1f76",
+            "width": 300
+          },
+          {
+            "height": 64,
+            "url": "https://i.scdn.co/image/ab67616d000048512ad4907e7a451077946e1f76",
+            "width": 64
+          }
+        ],
+        "name": "młody say10",
+        "release_date": "2022-09-22",
+        "release_date_precision": "day",
+        "total_tracks": 11,
+        "type": "album",
+        "uri": "spotify:album:4r0SGmxQ5XgR5nGyyOiO91"
+      },
+      {
+        "album_type": "album",
+        "artists": [
+          {
+            "external_urls": {
+              "spotify": "https://open.spotify.com/artist/1ZAGaCgMaOtt2yOUm1Qq6x"
+            },
+            "href": "https://api.spotify.com/v1/artists/1ZAGaCgMaOtt2yOUm1Qq6x",
+            "id": "1ZAGaCgMaOtt2yOUm1Qq6x",
+            "name": "KARAŚ/ROGUCKI",
+            "type": "artist",
+            "uri": "spotify:artist:1ZAGaCgMaOtt2yOUm1Qq6x"
+          }
+        ],
+        "available_markets": [
+          "ZW"
+        ],
+        "external_urls": {
+          "spotify": "https://open.spotify.com/album/6OXtQ6LweRljT1ngrJIr6o"
+        },
+        "href": "https://api.spotify.com/v1/albums/6OXtQ6LweRljT1ngrJIr6o",
+        "id": "6OXtQ6LweRljT1ngrJIr6o",
+        "images": [
+          {
+            "height": 640,
+            "url": "https://i.scdn.co/image/ab67616d0000b2733e5163a2ab4f714b42aa6504",
+            "width": 640
+          },
+          {
+            "height": 300,
+            "url": "https://i.scdn.co/image/ab67616d00001e023e5163a2ab4f714b42aa6504",
+            "width": 300
+          },
+          {
+            "height": 64,
+            "url": "https://i.scdn.co/image/ab67616d000048513e5163a2ab4f714b42aa6504",
+            "width": 64
+          }
+        ],
+        "name": "Czułe Kontyngenty",
+        "release_date": "2022-09-23",
+        "release_date_precision": "day",
+        "total_tracks": 12,
+        "type": "album",
+        "uri": "spotify:album:6OXtQ6LweRljT1ngrJIr6o"
+      }
+    ],
+    "limit": 2,
+    "next": "https://api.spotify.com/v1/browse/new-releases?country=PL&offset=2&limit=2",
+    "offset": 0,
+    "previous": null,
+    "total": 4
+  }
+}
