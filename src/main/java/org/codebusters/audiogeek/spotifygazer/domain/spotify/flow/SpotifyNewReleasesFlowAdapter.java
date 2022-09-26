@@ -43,63 +43,8 @@ class SpotifyNewReleasesFlowAdapter implements NewReleasesFlowPort {
         var albums = convertToAlbumSet(rawNewReleases);
 
         albums = addGenresToAlbums(albums, tokenResponse.token());
-        var finalNewReleases = NewReleases.builder()
-                .albums(albums)
-                .build();
-        log.debug("Got new releases: {}", convertToString(finalNewReleases));
-        if (finalNewReleases.albums().isEmpty()) {
-            log.error("New releases list is empty");
-            return Optional.empty();
-        }
-        return Optional.of(finalNewReleases);
+        return convertToNewReleases(albums);
     }
-
-    private static Set<Album> convertToAlbumSet(Set<SpotifyNewReleasesAlbum> rawNewReleases) {
-        log.trace("Converting raw new releases");
-        var result = new LinkedHashSet<Album>();
-        for (SpotifyNewReleasesAlbum album : rawNewReleases) {
-            var convertResult = album.convertToAlbum();
-            if (convertResult.isEmpty()) {
-                continue;
-            }
-            result.add(convertResult.get());
-        }
-        return result;
-    }
-
-
-    private Set<Album> addGenresToAlbums(Set<Album> albums,
-                                         String token) {
-        log.trace("Adding genre info to albums");
-        var newReleasesWithGenres = new LinkedHashSet<Album>();
-
-        for (Album album : albums) {
-            log.trace("Adding genres to album: {}", convertToString(album));
-            var genres = SpotifyAlbumGenreAnalyzer.builder()
-                    .artists(album.artists())
-                    .token(token)
-                    .artistGenreSupplier((t, a) -> connectionPort.getArtist(token, a.id()))
-                    .build()
-                    .getGenre();
-
-            if (genres.isEmpty()) {
-                log.error("Genres is empty, skipping album");
-                continue;
-            }
-
-            var albumWithGenres = Album.builder()
-                    .id(album.id())
-                    .releaseDate(album.releaseDate())
-                    .title(album.title())
-                    .artists(album.artists())
-                    .link(album.link())
-                    .genre(genres.get())
-                    .build();
-            newReleasesWithGenres.add(albumWithGenres);
-        }
-        return newReleasesWithGenres;
-    }
-
 
     private Set<SpotifyNewReleasesAlbum> getRawNewReleases(String token) {
         log.trace("Getting raw new releases via Spotify API: page-length={}", releasesPageLength);
@@ -121,5 +66,79 @@ class SpotifyNewReleasesFlowAdapter implements NewReleasesFlowPort {
         } while (offset < total);
         log.trace("Retrieved raw new releases: {}", totalNewReleases);
         return totalNewReleases;
+    }
+
+    private static Set<Album> convertToAlbumSet(Set<SpotifyNewReleasesAlbum> rawNewReleases) {
+        log.trace("Converting raw new releases");
+        var result = new LinkedHashSet<Album>();
+        for (SpotifyNewReleasesAlbum album : rawNewReleases) {
+            var convertResult = album.convertToAlbum();
+            if (convertResult.isEmpty()) {
+                continue;
+            }
+            result.add(convertResult.get());
+        }
+        return result;
+    }
+
+    private Set<Album> addGenresToAlbums(Set<Album> albums,
+                                         String token) {
+        log.trace("Adding genre info to albums");
+        var newReleasesWithGenres = new LinkedHashSet<Album>();
+
+        for (Album album : albums) {
+            var albumWithGenres = getAlbumWithGenres(token, album);
+            if (albumWithGenres.isEmpty()) {
+                continue;
+            }
+            newReleasesWithGenres.add(albumWithGenres.get());
+        }
+        return newReleasesWithGenres;
+    }
+
+    private static Optional<NewReleases> convertToNewReleases(Set<Album> albums) {
+        var finalNewReleases = NewReleases
+                .builder()
+                .albums(albums)
+                .build();
+        log.debug("Got new releases: {}", convertToString(finalNewReleases));
+        if (finalNewReleases.albums().isEmpty()) {
+            log.error("New releases list is empty");
+            return Optional.empty();
+        }
+        return Optional.of(finalNewReleases);
+    }
+
+
+    private Optional<Album> getAlbumWithGenres(String token, Album album) {
+        log.trace("Adding genres to album: {}", convertToString(album));
+        var genres = getAlbumGenre(token, album);
+        if (genres.isEmpty()) {
+            log.error("Genres is empty, skipping album");
+            return Optional.empty();
+        }
+        var albumWithGenres = buildAlbumWithGenres(album, genres.get());
+        log.trace("Added genre to album: {}", albumWithGenres);
+        return Optional.of(albumWithGenres);
+    }
+
+    private Optional<Set<String>> getAlbumGenre(String token, Album album) {
+        return SpotifyAlbumGenreAnalyzer.builder()
+                .artists(album.artists())
+                .token(token)
+                .artistGenreSupplier((t, a) -> connectionPort.getArtist(token, a.id()))
+                .build()
+                .getGenre();
+    }
+
+    private static Album buildAlbumWithGenres(Album album, Set<String> genres) {
+        return Album.builder()
+                .id(album.id())
+                .releaseDate(album.releaseDate())
+                .title(album.title())
+                .artists(album.artists())
+                .link(album.link())
+                .genre(genres)
+                .build();
     }
 }

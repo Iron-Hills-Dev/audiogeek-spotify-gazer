@@ -17,6 +17,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 class SpotifyAlbumGenreAnalyzerTest {
 
+    private static final String TOKEN = "test";
+    private static final String TEST1_ARTIST1_NAME = "test-single-artist1";
+    private static final String TEST2_ARTIST1_NAME = "test-double-artist1";
+    private static final String TEST2_ARTIST2_NAME = "test-double-artist2";
     private SpotifyAlbumGenreAnalyzer sut;
 
 
@@ -26,7 +30,7 @@ class SpotifyAlbumGenreAnalyzerTest {
     void genreAnalyzerCorrect(Set<Artist> artists, Set<String> expectedGenres) {
         //given
         sut = SpotifyAlbumGenreAnalyzer.builder()
-                .token("test")
+                .token(TOKEN)
                 .artists(artists)
                 .artistGenreSupplier(SpotifyAlbumGenreAnalyzerTest::fakeGenreSupplier)
                 .build();
@@ -40,17 +44,17 @@ class SpotifyAlbumGenreAnalyzerTest {
     }
 
     private static SpotifyArtistResponse fakeGenreSupplier(String token, Artist artist) {
-        Assertions.assertThat(token).isEqualTo("test");
+        Assertions.assertThat(token).isEqualTo(TOKEN);
         return switch (artist.id()) {
-            case ("test-single-artist1") -> SpotifyArtistResponse.builder()
+            case TEST1_ARTIST1_NAME -> SpotifyArtistResponse.builder()
                     .id(artist.id())
                     .genres(List.of("rock", "metal"))
                     .build();
-            case ("test-double-artist1") -> SpotifyArtistResponse.builder()
+            case TEST2_ARTIST1_NAME -> SpotifyArtistResponse.builder()
                     .id(artist.id())
                     .genres(List.of("rap", "hip-hop"))
                     .build();
-            case ("test-double-artist2") -> SpotifyArtistResponse.builder()
+            case TEST2_ARTIST2_NAME -> SpotifyArtistResponse.builder()
                     .id(artist.id())
                     .genres(List.of("hip-hop", "trap"))
                     .build();
@@ -62,25 +66,25 @@ class SpotifyAlbumGenreAnalyzerTest {
     private static Stream<Arguments> genreAnalyzerCorrectSupplier() {
         var singleArtist = Set.of(
                 Artist.builder()
-                        .id("test-single-artist1")
-                        .name("test-single-artist1")
+                        .id(TEST1_ARTIST1_NAME)
+                        .name(TEST1_ARTIST1_NAME)
                         .build()
         );
         var singleArtistGenre = new LinkedHashSet<String>();
-        singleArtist.forEach(artist -> singleArtistGenre.addAll(fakeGenreSupplier("test", artist).genres()));
+        singleArtist.forEach(artist -> singleArtistGenre.addAll(fakeGenreSupplier(TOKEN, artist).genres()));
 
         var doubleArtist = Set.of(
                 Artist.builder()
-                        .id("test-double-artist1")
-                        .name("test-double-artist1")
+                        .id(TEST2_ARTIST1_NAME)
+                        .name(TEST2_ARTIST1_NAME)
                         .build(),
                 Artist.builder()
-                        .id("test-double-artist2")
-                        .name("test-double-artist2")
+                        .id(TEST2_ARTIST2_NAME)
+                        .name(TEST2_ARTIST2_NAME)
                         .build()
         );
         var doubleArtistGenre = new LinkedHashSet<String>();
-        doubleArtist.forEach(artist -> doubleArtistGenre.addAll(fakeGenreSupplier("test", artist).genres()));
+        doubleArtist.forEach(artist -> doubleArtistGenre.addAll(fakeGenreSupplier(TOKEN, artist).genres()));
 
         return Stream.of(
                 Arguments.of(singleArtist, singleArtistGenre),
