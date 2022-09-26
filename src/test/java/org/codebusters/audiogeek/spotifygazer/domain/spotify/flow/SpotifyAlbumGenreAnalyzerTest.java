@@ -3,6 +3,7 @@ package org.codebusters.audiogeek.spotifygazer.domain.spotify.flow;
 import org.assertj.core.api.Assertions;
 import org.codebusters.audiogeek.spotifygazer.domain.newreleasesflow.model.Artist;
 import org.codebusters.audiogeek.spotifygazer.domain.spotify.connection.model.SpotifyArtistResponse;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -21,6 +22,7 @@ class SpotifyAlbumGenreAnalyzerTest {
 
     @ParameterizedTest
     @MethodSource("genreAnalyzerCorrectSupplier")
+    @DisplayName("genreAnalyzer - should return correct genres for correct artists")
     void genreAnalyzerCorrect(Set<Artist> artists, Set<String> expectedGenres) {
         //given
         sut = SpotifyAlbumGenreAnalyzer.builder()

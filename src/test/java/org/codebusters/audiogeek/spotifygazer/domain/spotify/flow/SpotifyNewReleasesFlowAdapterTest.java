@@ -8,6 +8,7 @@ import org.codebusters.audiogeek.spotifygazer.domain.spotify.connection.model.Sp
 import org.codebusters.audiogeek.spotifygazer.util.SpotifyServerMock;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -52,6 +53,7 @@ class SpotifyNewReleasesFlowAdapterTest {
     }
 
     @Test
+    @DisplayName("getNewReleases - should return correct new releases")
     void getNewReleasesCorrect() throws IOException {
         //given
         var mapper = new ObjectMapper();
@@ -70,6 +72,7 @@ class SpotifyNewReleasesFlowAdapterTest {
 
 
     @Test
+    @DisplayName("getNewReleases - should be empty when getToken returned error")
     void getNewReleasesGetTokenError() {
         // given
         doThrow(SpotifyConnectionException.class).when(connectionPort).getToken();
@@ -83,6 +86,7 @@ class SpotifyNewReleasesFlowAdapterTest {
 
 
     @Test
+    @DisplayName("getNewReleases - should ignore corrupted part of new releases")
     void getNewReleasesCorruptedRawReleases() throws IOException {
         // given
         var mapper = new ObjectMapper();
@@ -100,6 +104,7 @@ class SpotifyNewReleasesFlowAdapterTest {
     }
 
     @Test
+    @DisplayName("getNewReleases - should be empty when new releases are empty")
     void getNewReleasesNoAlbumsError() {
         // given
         doThrow(RuntimeException.class).when(connectionPort).getNewReleases(any(), anyInt(), anyInt());
@@ -113,6 +118,7 @@ class SpotifyNewReleasesFlowAdapterTest {
 
 
     @Test
+    @DisplayName("getNewReleases - should ignore corrupted album")
     void getNewReleasesCorruptedAlbum() throws IOException {
         //given
         var mapper = new ObjectMapper();
@@ -132,7 +138,8 @@ class SpotifyNewReleasesFlowAdapterTest {
     }
 
     @Test
-    void getNewReleasesGetArtistError() throws IOException {
+    @DisplayName("getNewReleases - should ignore album with corrupted artist")
+    void getNewReleasesCorruptedArtist() throws IOException {
         //given
         var mapper = new ObjectMapper();
         doThrow(RuntimeException.class).when(connectionPort).getArtist(TOKEN, "34Atpk8kle8mndOUwKblhK");
@@ -150,6 +157,7 @@ class SpotifyNewReleasesFlowAdapterTest {
     }
 
     @Test
+    @DisplayName("getNewReleases - should be empty when unexpected error appeared")
     void getNewReleasesUnexpectedError() {
         // given
         doThrow(RuntimeException.class).when(connectionPort).getToken();
