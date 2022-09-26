@@ -7,7 +7,6 @@ import org.codebusters.audiogeek.spotifygazer.domain.spotify.connection.model.Sp
 
 import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 import java.util.function.BiFunction;
 
@@ -19,12 +18,12 @@ class SpotifyAlbumGenreAnalyzer {
     private final String token;
     private final BiFunction<String, Artist, SpotifyArtistResponse> artistGenreSupplier;
 
-    Optional<Set<String>> getGenre() {
+    Set<String> getGenre() {
         log.trace("Getting album genres");
         return getArtistsGenres(artists, token);
     }
 
-    private Optional<Set<String>> getArtistsGenres(Set<Artist> artists, String token) {
+    private Set<String> getArtistsGenres(Set<Artist> artists, String token) {
         log.trace("Getting genres from artists");
         var genres = new LinkedHashSet<String>();
         for (Artist artist : artists) {
@@ -32,11 +31,11 @@ class SpotifyAlbumGenreAnalyzer {
                 genres.addAll(getArtistGenres(token, artist));
             } catch (Exception e) {
                 log.error("An error occurred while trying to get artist genres: artist={}", artist);
-                return Optional.empty();
+                return Set.of();
             }
         }
         log.trace("Got genres: {}", genres);
-        return Optional.of(genres);
+        return genres;
     }
 
     private List<String> getArtistGenres(String token, Artist artist) {

@@ -13,7 +13,7 @@ public class DtoUtils {
         var mapper = new ObjectMapper();
         var map = mapper.convertValue(object, Map.class);
         for (String reservedField : reservedFields) {
-            map.replace(reservedField, "██████████████");
+            map.replace(reservedField, "***");
         }
         return String.format("%s", map);
 

@@ -40,7 +40,7 @@ class SpotifyAlbumGenreAnalyzerTest {
 
         //then
         assertThat(genres).isNotEmpty();
-        assertThat(genres.get()).isEqualTo(expectedGenres);
+        assertThat(genres).isEqualTo(expectedGenres);
     }
 
     private static SpotifyArtistResponse fakeGenreSupplier(String token, Artist artist) {

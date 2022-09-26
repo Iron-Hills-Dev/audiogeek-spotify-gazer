@@ -24,7 +24,8 @@ public record SpotifyNewReleasesAlbum(List<SpotifyNewReleasesArtist> artists,
                 .map(ar -> Artist.builder()
                         .id(ar.id())
                         .name(ar.name())
-                        .build()).collect(toSet());
+                        .build())
+                .collect(toSet());
     }
 
     public Optional<Album> convertToAlbum() {
