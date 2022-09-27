@@ -18,8 +18,15 @@ public class SpotifyServerMock {
     private static final Path GET_TOKEN_WRONG_CREDS_RESPONSE = Path.of("src/test/resources/spotify/connection/get-token/response-wrong-creds.json");
     private static final Path NEW_RELEASES_CORRECT_RESPONSE_0_1 = Path.of("src/test/resources/spotify/connection/new-releases/response-correct-0-1.json");
     private static final Path NEW_RELEASES_CORRECT_RESPONSE_3_2 = Path.of("src/test/resources/spotify/connection/new-releases/response-correct-3-2.json");
+    private static final Path NEW_RELEASES_CORRECT_RESPONSE_0_2 = Path.of("src/test/resources/spotify/connection/new-releases/response-correct-0-2.json");
+    private static final Path NEW_RELEASES_CORRECT_RESPONSE_2_2 = Path.of("src/test/resources/spotify/connection/new-releases/response-correct-2-2.json");
     private static final Path NEW_RELEASES_RESPONSE_WRONG_LIMIT = Path.of("src/test/resources/spotify/connection/new-releases/response-wrong-limit.json");
     private static final Path GET_ARTIST_CORRECT_RESPONSE_DJKHALED = Path.of("src/test/resources/spotify/connection/get-artist/response-correct-djkhaled.json");
+    private static final Path GET_ARTIST_CORRECT_RESPONSE_5_SEC = Path.of("src/test/resources/spotify/connection/get-artist/response-correct-5-sec.json");
+    private static final Path GET_ARTIST_CORRECT_RESPONSE_CHIVAS = Path.of("src/test/resources/spotify/connection/get-artist/response-correct-chivas.json");
+    private static final Path GET_ARTIST_CORRECT_RESPONSE_KARAS_ROGUCKI = Path.of("src/test/resources/spotify/connection/get-artist/response-correct-karas-rogucki.json");
+    private static final Path GET_ARTIST_CORRECT_RESPONSE_LUCASSI = Path.of("src/test/resources/spotify/connection/get-artist/response-correct-lucassi.json");
+    private static final Path GET_ARTIST_CORRECT_RESPONSE_SEVEN_PHOENIX = Path.of("src/test/resources/spotify/connection/get-artist/response-correct-seven-phoenix.json");
     private static final Path GET_ARTIST_INVALID_ID_RESPONSE = Path.of("src/test/resources/spotify/connection/get-artist/response-invalid-id.json");
     private static final String AUTHORIZATION_HEADER_TITLE = "Authorization";
     private static final String AUTHORIZATION_HEADER_BEARER_VALUE = "Bearer " + TOKEN;
@@ -81,7 +88,6 @@ public class SpotifyServerMock {
                 .willReturn(ok()
                         .withHeader(CONTENT_TYPE_HEADER_TITLE, APPLICATION_JSON_VALUE)
                         .withBody(readAllBytes(NEW_RELEASES_CORRECT_RESPONSE_3_2))));
-
         server.stubFor(get("/v1/browse/new-releases?offset=0&limit=60")
                 .withHeader(AUTHORIZATION_HEADER_TITLE, equalTo(AUTHORIZATION_HEADER_BEARER_VALUE))
                 .withHeader(ACCEPT_HEADER_TITLE, containing(APPLICATION_JSON_VALUE))
@@ -89,6 +95,21 @@ public class SpotifyServerMock {
                 .willReturn(badRequest()
                         .withHeader(CONTENT_TYPE_HEADER_TITLE, APPLICATION_JSON_VALUE)
                         .withBody(readAllBytes(NEW_RELEASES_RESPONSE_WRONG_LIMIT))));
+
+        server.stubFor(get("/v1/browse/new-releases?offset=0&limit=2")
+                .withHeader(AUTHORIZATION_HEADER_TITLE, equalTo(AUTHORIZATION_HEADER_BEARER_VALUE))
+                .withHeader(ACCEPT_HEADER_TITLE, containing(APPLICATION_JSON_VALUE))
+                .withQueryParams(Map.of("offset", equalTo("0"), "limit", equalTo("2")))
+                .willReturn(ok()
+                        .withHeader(CONTENT_TYPE_HEADER_TITLE, APPLICATION_JSON_VALUE)
+                        .withBody(readAllBytes(NEW_RELEASES_CORRECT_RESPONSE_0_2))));
+        server.stubFor(get("/v1/browse/new-releases?offset=2&limit=2")
+                .withHeader(AUTHORIZATION_HEADER_TITLE, equalTo(AUTHORIZATION_HEADER_BEARER_VALUE))
+                .withHeader(ACCEPT_HEADER_TITLE, containing(APPLICATION_JSON_VALUE))
+                .withQueryParams(Map.of("offset", equalTo("2"), "limit", equalTo("2")))
+                .willReturn(ok()
+                        .withHeader(CONTENT_TYPE_HEADER_TITLE, APPLICATION_JSON_VALUE)
+                        .withBody(readAllBytes(NEW_RELEASES_CORRECT_RESPONSE_2_2))));
     }
 
     private void configureGetArtist() throws IOException {
@@ -104,5 +125,36 @@ public class SpotifyServerMock {
                 .willReturn(badRequest()
                         .withHeader(CONTENT_TYPE_HEADER_TITLE, APPLICATION_JSON_VALUE)
                         .withBody(readAllBytes(GET_ARTIST_INVALID_ID_RESPONSE))));
+
+        server.stubFor(get("/v1/artists/5Rl15oVamLq7FbSb0NNBNy")
+                .withHeader(AUTHORIZATION_HEADER_TITLE, equalTo(AUTHORIZATION_HEADER_BEARER_VALUE))
+                .withHeader(ACCEPT_HEADER_TITLE, containing(APPLICATION_JSON_VALUE))
+                .willReturn(ok()
+                        .withHeader(CONTENT_TYPE_HEADER_TITLE, APPLICATION_JSON_VALUE)
+                        .withBody(readAllBytes(GET_ARTIST_CORRECT_RESPONSE_5_SEC))));
+        server.stubFor(get("/v1/artists/1fZAAHNWdSM5gqbi9o5iEA")
+                .withHeader(AUTHORIZATION_HEADER_TITLE, equalTo(AUTHORIZATION_HEADER_BEARER_VALUE))
+                .withHeader(ACCEPT_HEADER_TITLE, containing(APPLICATION_JSON_VALUE))
+                .willReturn(ok()
+                        .withHeader(CONTENT_TYPE_HEADER_TITLE, APPLICATION_JSON_VALUE)
+                        .withBody(readAllBytes(GET_ARTIST_CORRECT_RESPONSE_CHIVAS))));
+        server.stubFor(get("/v1/artists/1ZAGaCgMaOtt2yOUm1Qq6x")
+                .withHeader(AUTHORIZATION_HEADER_TITLE, equalTo(AUTHORIZATION_HEADER_BEARER_VALUE))
+                .withHeader(ACCEPT_HEADER_TITLE, containing(APPLICATION_JSON_VALUE))
+                .willReturn(ok()
+                        .withHeader(CONTENT_TYPE_HEADER_TITLE, APPLICATION_JSON_VALUE)
+                        .withBody(readAllBytes(GET_ARTIST_CORRECT_RESPONSE_KARAS_ROGUCKI))));
+        server.stubFor(get("/v1/artists/34Atpk8kle8mndOUwKblhK")
+                .withHeader(AUTHORIZATION_HEADER_TITLE, equalTo(AUTHORIZATION_HEADER_BEARER_VALUE))
+                .withHeader(ACCEPT_HEADER_TITLE, containing(APPLICATION_JSON_VALUE))
+                .willReturn(ok()
+                        .withHeader(CONTENT_TYPE_HEADER_TITLE, APPLICATION_JSON_VALUE)
+                        .withBody(readAllBytes(GET_ARTIST_CORRECT_RESPONSE_LUCASSI))));
+        server.stubFor(get("/v1/artists/2Upgflj1wOmOVSb7rp0Ba2")
+                .withHeader(AUTHORIZATION_HEADER_TITLE, equalTo(AUTHORIZATION_HEADER_BEARER_VALUE))
+                .withHeader(ACCEPT_HEADER_TITLE, containing(APPLICATION_JSON_VALUE))
+                .willReturn(ok()
+                        .withHeader(CONTENT_TYPE_HEADER_TITLE, APPLICATION_JSON_VALUE)
+                        .withBody(readAllBytes(GET_ARTIST_CORRECT_RESPONSE_SEVEN_PHOENIX))));
     }
 }

@@ -7,4 +7,5 @@ gazer:
     client-secret: test
     base-accounts-url: http://localhost:9999
     base-api-url: http://localhost:9999/v1
+    releases-page-length: 2
 

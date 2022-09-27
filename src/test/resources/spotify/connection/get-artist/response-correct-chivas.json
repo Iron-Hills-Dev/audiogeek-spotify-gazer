@@ -1,0 +1,36 @@
+{
+  "external_urls": {
+    "spotify": "https://open.spotify.com/artist/1fZAAHNWdSM5gqbi9o5iEA"
+  },
+  "followers": {
+    "href": null,
+    "total": 167592
+  },
+  "genres": [
+    "polish hip hop",
+    "polish trap"
+  ],
+  "href": "https://api.spotify.com/v1/artists/1fZAAHNWdSM5gqbi9o5iEA",
+  "id": "1fZAAHNWdSM5gqbi9o5iEA",
+  "images": [
+    {
+      "height": 640,
+      "url": "https://i.scdn.co/image/ab6761610000e5ebf9ee20f2b97759776a85642b",
+      "width": 640
+    },
+    {
+      "height": 320,
+      "url": "https://i.scdn.co/image/ab67616100005174f9ee20f2b97759776a85642b",
+      "width": 320
+    },
+    {
+      "height": 160,
+      "url": "https://i.scdn.co/image/ab6761610000f178f9ee20f2b97759776a85642b",
+      "width": 160
+    }
+  ],
+  "name": "Chivas",
+  "popularity": 65,
+  "type": "artist",
+  "uri": "spotify:artist:1fZAAHNWdSM5gqbi9o5iEA"
+}

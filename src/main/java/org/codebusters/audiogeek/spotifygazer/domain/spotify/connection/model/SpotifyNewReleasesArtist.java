@@ -4,4 +4,5 @@ import lombok.Builder;
 
 @Builder
 public record SpotifyNewReleasesArtist(String name, String id) {
+
 }

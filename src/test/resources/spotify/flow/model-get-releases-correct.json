@@ -1,0 +1,75 @@
+{
+  "albums": [
+    {
+      "id": "1oPR79ZWitR1bQaBaG37Kn",
+      "title": "Acapulco",
+      "artists": [
+        {
+          "id": "2Upgflj1wOmOVSb7rp0Ba2",
+          "name": "Seven Phoenix"
+        },
+        {
+          "id": "34Atpk8kle8mndOUwKblhK",
+          "name": "Lucassi"
+        }
+      ],
+      "releaseDate": "2022-09-17",
+      "genre": [
+        "other-fake-genre",
+        "fake-genre"
+      ],
+      "link": "https://open.spotify.com/album/1oPR79ZWitR1bQaBaG37Kn"
+    },
+    {
+      "id": "26uA5pGrTovBLxikRsMQJ4",
+      "title": "5SOS5",
+      "artists": [
+        {
+          "id": "5Rl15oVamLq7FbSb0NNBNy",
+          "name": "5 Seconds of Summer"
+        }
+      ],
+      "releaseDate": "2022-09-23",
+      "genre": [
+        "boy band",
+        "dance pop",
+        "pop",
+        "post-teen pop",
+        "uk pop"
+      ],
+      "link": "https://open.spotify.com/album/26uA5pGrTovBLxikRsMQJ4"
+    },
+    {
+      "id": "6OXtQ6LweRljT1ngrJIr6o",
+      "title": "Czułe Kontyngenty",
+      "artists": [
+        {
+          "id": "1ZAGaCgMaOtt2yOUm1Qq6x",
+          "name": "KARAŚ/ROGUCKI"
+        }
+      ],
+      "releaseDate": "2022-09-23",
+      "genre": [
+        "polish alternative",
+        "polish pop"
+      ],
+      "link": "https://open.spotify.com/album/6OXtQ6LweRljT1ngrJIr6o"
+    },
+    {
+      "id": "4r0SGmxQ5XgR5nGyyOiO91",
+      "title": "młody say10",
+      "artists": [
+        {
+          "id": "1fZAAHNWdSM5gqbi9o5iEA",
+          "name": "Chivas"
+        }
+      ],
+      "releaseDate": "2022-09-22",
+      "genre": [
+        "polish hip hop",
+        "polish trap"
+      ],
+      "link": "https://open.spotify.com/album/4r0SGmxQ5XgR5nGyyOiO91"
+    }
+  ]
+}

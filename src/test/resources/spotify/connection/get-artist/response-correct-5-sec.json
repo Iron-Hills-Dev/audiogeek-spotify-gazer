@@ -1,0 +1,29 @@
+{
+  "external_urls" : {
+    "spotify" : "https://open.spotify.com/artist/5Rl15oVamLq7FbSb0NNBNy"
+  },
+  "followers" : {
+    "href" : null,
+    "total" : 8829986
+  },
+  "genres" : [ "boy band", "dance pop", "pop", "post-teen pop", "uk pop" ],
+  "href" : "https://api.spotify.com/v1/artists/5Rl15oVamLq7FbSb0NNBNy",
+  "id" : "5Rl15oVamLq7FbSb0NNBNy",
+  "images" : [ {
+    "height" : 640,
+    "url" : "https://i.scdn.co/image/ab6761610000e5eb92ce1e218cb7b48386efe3d8",
+    "width" : 640
+  }, {
+    "height" : 320,
+    "url" : "https://i.scdn.co/image/ab6761610000517492ce1e218cb7b48386efe3d8",
+    "width" : 320
+  }, {
+    "height" : 160,
+    "url" : "https://i.scdn.co/image/ab6761610000f17892ce1e218cb7b48386efe3d8",
+    "width" : 160
+  } ],
+  "name" : "5 Seconds of Summer",
+  "popularity" : 78,
+  "type" : "artist",
+  "uri" : "spotify:artist:5Rl15oVamLq7FbSb0NNBNy"
+}
