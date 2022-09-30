@@ -6,6 +6,9 @@ import org.codebusters.audiogeek.spotifygazer.domain.newreleasesflow.model.NewRe
 
 import java.util.Set;
 
+/**
+ * Interface with methods for querying data in storage
+ */
 public interface DataQueryPort {
     /**
      * Gets all albums in data storage

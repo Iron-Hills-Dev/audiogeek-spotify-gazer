@@ -3,6 +3,9 @@ package org.codebusters.audiogeek.spotifygazer.domain.dataexchange;
 import org.codebusters.audiogeek.spotifygazer.domain.dataexchange.model.AddAlbumsCommand;
 import org.codebusters.audiogeek.spotifygazer.domain.dataexchange.model.RemoveAlbumsCommand;
 
+/**
+ * Interface with methods for modifying data in storage
+ */
 public interface DataModifyPort {
     /**
      * Adds one or more albums to data storage
