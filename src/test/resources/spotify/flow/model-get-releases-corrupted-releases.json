@@ -14,7 +14,7 @@
         }
       ],
       "releaseDate": "2022-09-17",
-      "genre": [
+      "genres": [
         "other-fake-genre",
         "fake-genre"
       ],
@@ -30,7 +30,7 @@
         }
       ],
       "releaseDate": "2022-09-23",
-      "genre": [
+      "genres": [
         "boy band",
         "dance pop",
         "pop",
