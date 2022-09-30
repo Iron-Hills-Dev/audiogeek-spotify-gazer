@@ -7,6 +7,16 @@ import org.codebusters.audiogeek.spotifygazer.domain.newreleasesflow.model.NewRe
 import java.util.Set;
 
 public interface DataQueryPort {
+    /**
+     * Gets all albums in data storage
+     * @return NewReleases object with all albums
+     */
     NewReleases getAlbums();
+
+    /**
+     * Gets albums chosen in cmd
+     * @param cmd Command for filtering albums
+     * @return All albums consistent with cmd
+     */
     Set<Album> getAlbums(GetAlbumsCommand cmd);
 }
