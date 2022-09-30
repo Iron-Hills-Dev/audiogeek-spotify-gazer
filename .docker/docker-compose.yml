@@ -8,6 +8,11 @@ services:
     environment:
       JVM_OPTS: -Xmx512m -Xms512m
       GAZER_LOG_LEVEL: debug
+      GAZER_SPOTIFY_CLIENT_ID: client-id
+      GAZER_SPOTIFY_CLIENT_SECRET: client-secret
+      GAZER_DATABASE_DATASOURCE_URL: jdbc:postgresql://gazer-postgres:5432/gazer?createDatabaseIfNotExist=true
+      GAZER_DATABASE_USER: gazer
+      GAZER_DATABASE_PASSWORD: gazer
     ports:
       - "6000:6000"
     depends_on:
