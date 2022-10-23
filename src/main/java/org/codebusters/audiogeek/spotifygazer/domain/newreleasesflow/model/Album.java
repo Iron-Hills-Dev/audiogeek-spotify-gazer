@@ -11,7 +11,7 @@ import java.util.Set;
 public record Album(@NonNull String id,
                     @NonNull String title,
                     @NonNull Set<Artist> artists,
-                    @NonNull String releaseDate,
+                    @NonNull String releaseDate, //TODO change to LocalDate object
                     @With Set<String> genre,
                     @NonNull URI link) {
 }
