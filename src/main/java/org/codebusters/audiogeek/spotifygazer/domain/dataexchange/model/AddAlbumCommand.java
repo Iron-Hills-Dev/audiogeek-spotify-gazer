@@ -1,11 +1,11 @@
 package org.codebusters.audiogeek.spotifygazer.domain.dataexchange.model;
 
 import org.codebusters.audiogeek.spotifygazer.domain.newreleasesflow.model.Album;
-import java.util.Set;
 
 /**
- * Command for adding albums
- * @param albums Album set to add
+ * Command for adding album
+ *
+ * @param album Album to add
  */
-public record AddAlbumsCommand(Set<Album> albums) {
+public record AddAlbumCommand(Album album) {
 }

@@ -1,10 +1,9 @@
 package org.codebusters.audiogeek.spotifygazer.domain.dataexchange;
 
-import org.codebusters.audiogeek.spotifygazer.domain.dataexchange.model.GetAlbumsCommand;
+import org.codebusters.audiogeek.spotifygazer.domain.dataexchange.model.GetAlbumsByGenreFilter;
 import org.codebusters.audiogeek.spotifygazer.domain.newreleasesflow.model.Album;
-import org.codebusters.audiogeek.spotifygazer.domain.newreleasesflow.model.NewReleases;
-
-import java.util.Set;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 /**
  * Interface with methods for querying data in storage
@@ -12,14 +11,17 @@ import java.util.Set;
 public interface DataQueryPort {
     /**
      * Gets all albums in data storage
+     * @param pageable pageable object
+     *
      * @return NewReleases object with all albums
      */
-    NewReleases getAlbums();
+    Page<Album> getAlbums(Pageable pageable);
 
     /**
-     * Gets albums chosen in cmd
-     * @param cmd Command for filtering albums
-     * @return All albums consistent with cmd
+     * Gets albums by their genre
+     *
+     * @param filter Command for filtering albums
+     * @return All albums consistent with filter
      */
-    Set<Album> getAlbums(GetAlbumsCommand cmd);
+    Page<Album> getAlbums(GetAlbumsByGenreFilter filter);
 }
