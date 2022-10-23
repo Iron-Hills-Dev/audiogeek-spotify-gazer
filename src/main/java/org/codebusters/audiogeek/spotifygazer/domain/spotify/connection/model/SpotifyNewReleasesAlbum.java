@@ -12,6 +12,14 @@ import java.util.Set;
 
 import static java.util.stream.Collectors.toSet;
 
+/**
+ * Spotify final album object.
+ * @param artists album artists.
+ * @param id album id.
+ * @param name album title.
+ * @param releaseDate album release date.
+ * @param link link to album on Spotify App.
+ */
 @Slf4j
 @Builder
 public record SpotifyNewReleasesAlbum(List<SpotifyNewReleasesArtist> artists,

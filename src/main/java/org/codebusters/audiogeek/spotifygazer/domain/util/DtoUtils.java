@@ -8,6 +8,12 @@ import java.util.Map;
 public class DtoUtils {
 
 
+    /**
+     * Converts object to string
+     * @param object object to convert
+     * @param reservedFields fields to be censored
+     * @return object data in string (with reservedFields censored)
+     */
     @SuppressWarnings("unchecked")
     public static String convertToString(Object object, List<String> reservedFields) {
         var mapper = new ObjectMapper();
@@ -19,6 +25,11 @@ public class DtoUtils {
 
     }
 
+    /**
+     * Converts object to string
+     * @param object object to convert
+     * @return object data in string
+     */
     public static String convertToString(Object object) {
         var oMapper = new ObjectMapper();
         var map = oMapper.convertValue(object, Map.class);

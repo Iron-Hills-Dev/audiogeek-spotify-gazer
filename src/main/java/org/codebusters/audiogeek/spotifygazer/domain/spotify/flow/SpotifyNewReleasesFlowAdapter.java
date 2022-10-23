@@ -105,7 +105,7 @@ class SpotifyNewReleasesFlowAdapter implements NewReleasesFlowPort {
             log.error("Genres are empty, skipping album");
             return empty();
         }
-        var albumWithGenres = album.withGenre(genres);
+        var albumWithGenres = album.withGenres(genres);
         log.trace("Added genre to album: {}", albumWithGenres);
         return Optional.of(albumWithGenres);
     }
