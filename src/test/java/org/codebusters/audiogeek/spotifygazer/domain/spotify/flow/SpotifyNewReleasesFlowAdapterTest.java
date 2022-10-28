@@ -1,6 +1,7 @@
 package org.codebusters.audiogeek.spotifygazer.domain.spotify.flow;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.codebusters.audiogeek.spotifygazer.domain.newreleasesflow.model.NewReleases;
 import org.codebusters.audiogeek.spotifygazer.domain.spotify.connection.SpotifyConnectionPort;
 import org.codebusters.audiogeek.spotifygazer.domain.spotify.connection.exception.SpotifyConnectionException;
@@ -18,6 +19,7 @@ import org.springframework.test.context.ActiveProfiles;
 import java.io.IOException;
 import java.nio.file.Path;
 
+import static com.fasterxml.jackson.databind.SerializationFeature.WRITE_DATES_AS_TIMESTAMPS;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.codebusters.audiogeek.spotifygazer.util.SpotifyServerMock.TOKEN;
 import static org.mockito.ArgumentMatchers.any;
@@ -57,6 +59,9 @@ class SpotifyNewReleasesFlowAdapterTest {
     void getNewReleasesCorrect() throws IOException {
         //given
         var mapper = new ObjectMapper();
+        mapper.registerModule(new JavaTimeModule());
+        mapper.disable(WRITE_DATES_AS_TIMESTAMPS);
+
         var expectedModel = mapper.readValue(NEW_RELEASES_CORRECT_MODEL.toFile(), NewReleases.class);
 
         // when
@@ -90,6 +95,9 @@ class SpotifyNewReleasesFlowAdapterTest {
     void getNewReleasesCorruptedRawReleases() throws IOException {
         // given
         var mapper = new ObjectMapper();
+        mapper.registerModule(new JavaTimeModule());
+        mapper.disable(WRITE_DATES_AS_TIMESTAMPS);
+
         var expectedModel = mapper.readValue(NEW_RELEASES_CORRUPTED_RELEASES_MODEL.toFile(), NewReleases.class);
         doThrow(RuntimeException.class).when(connectionPort).getNewReleases(TOKEN, 0, 2);
 
@@ -122,6 +130,9 @@ class SpotifyNewReleasesFlowAdapterTest {
     void getNewReleasesCorruptedAlbum() throws IOException {
         //given
         var mapper = new ObjectMapper();
+        mapper.registerModule(new JavaTimeModule());
+        mapper.disable(WRITE_DATES_AS_TIMESTAMPS);
+
         doReturn(mapper.readValue(GET_NEW_RELEASES_CORRUPTED_RESPONSE_0_2.toFile(), SpotifyNewReleasesResponse.class))
                 .when(connectionPort).getNewReleases(TOKEN, 0, 2);
         var expectedModel = mapper.readValue(NEW_RELEASES_CORRUPTED_ALBUM_MODEL.toFile(), NewReleases.class);
@@ -142,6 +153,8 @@ class SpotifyNewReleasesFlowAdapterTest {
     void getNewReleasesCorruptedArtist() throws IOException {
         //given
         var mapper = new ObjectMapper();
+        mapper.registerModule(new JavaTimeModule());
+        mapper.disable(WRITE_DATES_AS_TIMESTAMPS);
         doThrow(RuntimeException.class).when(connectionPort).getArtist(TOKEN, "34Atpk8kle8mndOUwKblhK");
         var expectedModel = mapper.readValue(NEW_RELEASES_ARTIST_ERROR_MODEL.toFile(), NewReleases.class);
 

@@ -21,6 +21,7 @@
         <wiremock.version>2.34.0</wiremock.version>
         <h2.version>2.1.214</h2.version>
         <postgresql.version>42.5.0</postgresql.version>
+        <jackson-bom.version>2.13.4</jackson-bom.version>
     </properties>
 
     <dependencies>
@@ -41,6 +42,11 @@
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
             <version>${postgresql.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.datatype</groupId>
+            <artifactId>jackson-datatype-jsr310</artifactId>
+            <version>${jackson-bom.version}</version>
         </dependency>
 
         <dependency>

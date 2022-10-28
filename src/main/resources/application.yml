@@ -29,3 +29,4 @@ gazer:
     base-accounts-url: https://accounts.spotify.com
     base-api-url: https://api.spotify.com/v1
     releases-page-length: 50
+    release-date-format: yyyy-MM-dd
