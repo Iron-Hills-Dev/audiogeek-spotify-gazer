@@ -36,6 +36,9 @@ class SpotifyNewReleasesFlowAdapterTest {
     private static final Path GET_NEW_RELEASES_CORRUPTED_RESPONSE_0_2 = Path.of("src/test/resources/spotify/connection/new-releases/response-corrupted-0-2.json");
     private static final Path NEW_RELEASES_CORRUPTED_ALBUM_MODEL = Path.of("src/test/resources/spotify/flow/model-get-releases-corrupted-album.json");
     private static final Path NEW_RELEASES_ARTIST_ERROR_MODEL = Path.of("src/test/resources/spotify/flow/model-get-releases-artist-error.json");
+    private static final ObjectMapper MAPPER = new ObjectMapper()
+            .registerModule(new JavaTimeModule())
+            .disable(WRITE_DATES_AS_TIMESTAMPS);
     private static SpotifyServerMock spotifyServerMock;
 
     @Autowired
@@ -58,11 +61,7 @@ class SpotifyNewReleasesFlowAdapterTest {
     @DisplayName("getNewReleases - should return correct new releases")
     void getNewReleasesCorrect() throws IOException {
         //given
-        var mapper = new ObjectMapper();
-        mapper.registerModule(new JavaTimeModule());
-        mapper.disable(WRITE_DATES_AS_TIMESTAMPS);
-
-        var expectedModel = mapper.readValue(NEW_RELEASES_CORRECT_MODEL.toFile(), NewReleases.class);
+        var expectedModel = MAPPER.readValue(NEW_RELEASES_CORRECT_MODEL.toFile(), NewReleases.class);
 
         // when
         var response = sut.getNewReleases();
@@ -94,11 +93,7 @@ class SpotifyNewReleasesFlowAdapterTest {
     @DisplayName("getNewReleases - should ignore corrupted part of new releases")
     void getNewReleasesCorruptedRawReleases() throws IOException {
         // given
-        var mapper = new ObjectMapper();
-        mapper.registerModule(new JavaTimeModule());
-        mapper.disable(WRITE_DATES_AS_TIMESTAMPS);
-
-        var expectedModel = mapper.readValue(NEW_RELEASES_CORRUPTED_RELEASES_MODEL.toFile(), NewReleases.class);
+        var expectedModel = MAPPER.readValue(NEW_RELEASES_CORRUPTED_RELEASES_MODEL.toFile(), NewReleases.class);
         doThrow(RuntimeException.class).when(connectionPort).getNewReleases(TOKEN, 0, 2);
 
         // when
@@ -129,13 +124,9 @@ class SpotifyNewReleasesFlowAdapterTest {
     @DisplayName("getNewReleases - should ignore corrupted album")
     void getNewReleasesCorruptedAlbum() throws IOException {
         //given
-        var mapper = new ObjectMapper();
-        mapper.registerModule(new JavaTimeModule());
-        mapper.disable(WRITE_DATES_AS_TIMESTAMPS);
-
-        doReturn(mapper.readValue(GET_NEW_RELEASES_CORRUPTED_RESPONSE_0_2.toFile(), SpotifyNewReleasesResponse.class))
+        doReturn(MAPPER.readValue(GET_NEW_RELEASES_CORRUPTED_RESPONSE_0_2.toFile(), SpotifyNewReleasesResponse.class))
                 .when(connectionPort).getNewReleases(TOKEN, 0, 2);
-        var expectedModel = mapper.readValue(NEW_RELEASES_CORRUPTED_ALBUM_MODEL.toFile(), NewReleases.class);
+        var expectedModel = MAPPER.readValue(NEW_RELEASES_CORRUPTED_ALBUM_MODEL.toFile(), NewReleases.class);
 
         // when
         var response = sut.getNewReleases();
@@ -152,11 +143,8 @@ class SpotifyNewReleasesFlowAdapterTest {
     @DisplayName("getNewReleases - should ignore album with corrupted artist")
     void getNewReleasesCorruptedArtist() throws IOException {
         //given
-        var mapper = new ObjectMapper();
-        mapper.registerModule(new JavaTimeModule());
-        mapper.disable(WRITE_DATES_AS_TIMESTAMPS);
         doThrow(RuntimeException.class).when(connectionPort).getArtist(TOKEN, "34Atpk8kle8mndOUwKblhK");
-        var expectedModel = mapper.readValue(NEW_RELEASES_ARTIST_ERROR_MODEL.toFile(), NewReleases.class);
+        var expectedModel = MAPPER.readValue(NEW_RELEASES_ARTIST_ERROR_MODEL.toFile(), NewReleases.class);
 
         // when
         var response = sut.getNewReleases();

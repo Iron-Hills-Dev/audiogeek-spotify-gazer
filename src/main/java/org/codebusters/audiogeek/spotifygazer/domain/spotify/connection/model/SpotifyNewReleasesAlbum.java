@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
+import static java.time.format.DateTimeFormatter.ofPattern;
 import static java.util.stream.Collectors.toSet;
 
 /**
@@ -31,8 +32,8 @@ public record SpotifyNewReleasesAlbum(List<SpotifyNewReleasesArtist> artists,
                                       String releaseDate,
                                       String link) {
 
-
     private static final String RELEASE_DATE_FORMAT = "yyyy-MM-dd";
+    private static final DateTimeFormatter FORMATTER = ofPattern(RELEASE_DATE_FORMAT);
 
     public Set<Artist> toArtistSet() {
         return artists().stream()
@@ -48,7 +49,7 @@ public record SpotifyNewReleasesAlbum(List<SpotifyNewReleasesArtist> artists,
             return Optional.of(Album.builder()
                     .id(this.id())
                     .title(this.name())
-                    .releaseDate(convertReleaseDateToLocalDate(this.releaseDate))
+                    .releaseDate(toLocalDate(this.releaseDate))
                     .link(URI.create(this.link()))
                     .artists(this.toArtistSet())
                     .build());
@@ -58,9 +59,8 @@ public record SpotifyNewReleasesAlbum(List<SpotifyNewReleasesArtist> artists,
         }
     }
 
-    private LocalDate convertReleaseDateToLocalDate(String releaseDate) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(RELEASE_DATE_FORMAT);
-        return LocalDate.parse(releaseDate, formatter);
+    private LocalDate toLocalDate(String releaseDate) {
+        return LocalDate.parse(releaseDate, FORMATTER);
     }
 
 

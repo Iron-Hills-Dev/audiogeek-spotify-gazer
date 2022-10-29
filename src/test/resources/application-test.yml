@@ -21,4 +21,3 @@ gazer:
     base-accounts-url: http://localhost:9999
     base-api-url: http://localhost:9999/v1
     releases-page-length: 2
-    release-date-format: yyyy-MM-dd

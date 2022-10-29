@@ -29,6 +29,7 @@ import static org.codebusters.audiogeek.spotifygazer.util.SpotifyServerMock.TOKE
 class SpotifyConnectionAdapterTest {
 
     private static final Path ARTIST_MODEL_PATH = Path.of("src/test/resources/spotify/connection/get-artist/model-correct-djkhaled.json");
+    private static final ObjectMapper MAPPER = new ObjectMapper();
     private static SpotifyServerMock spotifyServerMock;
 
     @Autowired
@@ -63,8 +64,7 @@ class SpotifyConnectionAdapterTest {
     @DisplayName("get new releases - should get correct new releases for given parameters")
     void getNewReleasesCorrect(int offset, int limit, String modelFilename) throws IOException {
         // given
-        var mapper = new ObjectMapper();
-        var expectedModel = mapper.readValue(Path.of("src/test/resources/spotify/connection/new-releases", modelFilename).toFile(), SpotifyNewReleasesResponse.class);
+        var expectedModel = MAPPER.readValue(Path.of("src/test/resources/spotify/connection/new-releases", modelFilename).toFile(), SpotifyNewReleasesResponse.class);
 
         // when
         var response = sut.getNewReleases(TOKEN, offset, limit);
@@ -90,8 +90,7 @@ class SpotifyConnectionAdapterTest {
     @DisplayName("get artist - should get correct artist according to ID")
     void getArtistCorrect() throws IOException {
         // given
-        var mapper = new ObjectMapper();
-        var expectedModel = mapper.readValue(ARTIST_MODEL_PATH.toFile(), SpotifyArtistResponse.class);
+        var expectedModel = MAPPER.readValue(ARTIST_MODEL_PATH.toFile(), SpotifyArtistResponse.class);
 
         // when
         var response = sut.getArtist(TOKEN, "0QHgL1lAIqAw0HtD7YldmP");

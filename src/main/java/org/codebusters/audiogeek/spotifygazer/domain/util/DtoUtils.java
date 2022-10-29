@@ -9,7 +9,9 @@ import java.util.Map;
 import static com.fasterxml.jackson.databind.SerializationFeature.WRITE_DATES_AS_TIMESTAMPS;
 
 public class DtoUtils {
-
+    private static final ObjectMapper MAPPER = new ObjectMapper()
+            .registerModule(new JavaTimeModule())
+            .disable(WRITE_DATES_AS_TIMESTAMPS);;
 
     /**
      * Converts object to string
@@ -20,8 +22,7 @@ public class DtoUtils {
      */
     @SuppressWarnings("unchecked")
     public static String convertToString(Object object, List<String> reservedFields) {
-        var mapper = new ObjectMapper();
-        var map = mapper.convertValue(object, Map.class);
+        var map = MAPPER.convertValue(object, Map.class);
         for (String reservedField : reservedFields) {
             map.replace(reservedField, "***");
         }
@@ -36,11 +37,7 @@ public class DtoUtils {
      * @return object data in string
      */
     public static String convertToString(Object object) {
-        var mapper = new ObjectMapper();
-        mapper.registerModule(new JavaTimeModule());
-        mapper.disable(WRITE_DATES_AS_TIMESTAMPS);
-        var map = mapper.convertValue(object, Map.class);
+        var map = MAPPER.convertValue(object, Map.class);
         return String.format("%s", map);
-
     }
 }
