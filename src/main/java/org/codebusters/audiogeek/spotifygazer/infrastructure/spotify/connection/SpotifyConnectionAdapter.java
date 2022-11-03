@@ -10,16 +10,18 @@ import org.codebusters.audiogeek.spotifygazer.domain.spotify.connection.model.Sp
 import org.codebusters.audiogeek.spotifygazer.infrastructure.spotify.connection.newreleases.HttpNewReleasesResponse;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.Base64;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import static java.lang.String.format;
 import static java.util.Optional.ofNullable;
-import static org.codebusters.audiogeek.spotifygazer.domain.util.DtoUtils.convertToString;
+import static java.util.stream.Collectors.joining;
 import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 import static org.springframework.http.HttpMethod.GET;
 import static org.springframework.http.HttpMethod.POST;
@@ -34,6 +36,7 @@ class SpotifyConnectionAdapter implements SpotifyConnectionPort {
     private static final String NEW_RELEASES_URL_PATH = "/browse/new-releases?offset={offset}&limit={limit}";
     private static final String GET_ARTIST_URL_PATH = "/artists/{artistId}";
     private static final Map<String, List<String>> GET_TOKEN_BODY = Map.of("grant_type", List.of("client_credentials"));
+    private static final String RESPONSE_RECEIVED_LOG = "Response received: status-code={}; body={}; headers={}";
     private final RestTemplate restTemplate;
     private final String clientId;
     private final String clientSecret;
@@ -87,7 +90,8 @@ class SpotifyConnectionAdapter implements SpotifyConnectionPort {
                 POST,
                 entity,
                 SpotifyTokenResponse.class);
-        log.trace("Response received: {}", convertToString(response, List.of("body")));
+
+        log.trace(RESPONSE_RECEIVED_LOG, response.getStatusCode(), "***", response.getHeaders());
 
         var token = response.getBody();
         log.debug("Successfully retrieved Spotify access token");
@@ -107,7 +111,7 @@ class SpotifyConnectionAdapter implements SpotifyConnectionPort {
                 HttpNewReleasesResponse.class,
                 offset,
                 limit);
-        log.trace("Response received: {}", convertToString(response));
+        logResponse(response);
 
         var newReleases = ofNullable(response.getBody())
                 .map(HttpNewReleasesResponse::albums)
@@ -129,10 +133,10 @@ class SpotifyConnectionAdapter implements SpotifyConnectionPort {
                 entity,
                 SpotifyArtistResponse.class,
                 artistId);
-        log.trace("Response received: {}", convertToString(response));
+        logResponse(response);
 
         var artist = response.getBody();
-        log.debug("Successfully collected Spotify artist data: {}", convertToString(artist));
+        log.debug("Successfully collected Spotify artist data: {}", artist);
         return artist;
     }
 
@@ -152,7 +156,7 @@ class SpotifyConnectionAdapter implements SpotifyConnectionPort {
     private HttpEntity<Object> createHttpGetEntity(String spotifyBearerToken) {
         var headers = getHeaders(spotifyBearerToken);
         var entity = new HttpEntity<>(headers);
-        log.trace("Created HTTPEntity: headers={}", convertToString(headers, List.of(AUTHORIZATION)));
+        log.trace("Created HTTPEntity: headers={}", headersToString(headers, Set.of(AUTHORIZATION)));
         return entity;
     }
 
@@ -164,9 +168,17 @@ class SpotifyConnectionAdapter implements SpotifyConnectionPort {
         headers.setAccept(List.of(APPLICATION_JSON));
 
         var entity = new HttpEntity<>(body, headers);
-        log.trace("Created HttpEntity to send: headers={}, body={}",
-                convertToString(headers, List.of(AUTHORIZATION)),
-                convertToString(body));
+        log.trace("Created HttpEntity to send: headers={}, body={}", headersToString(headers, Set.of(AUTHORIZATION)), body);
         return entity;
+    }
+
+    private String headersToString(HttpHeaders headers, Set<String> secretFields) {
+        return headers.keySet().stream()
+                .map(k -> secretFields.stream().anyMatch(k::equalsIgnoreCase) ? k + "=***" : k + "=" + headers.get(k))
+                .collect(joining(", "));
+    }
+
+    private static void logResponse(ResponseEntity<?> response) {
+        log.trace(RESPONSE_RECEIVED_LOG, response.getStatusCode(), response.getBody(), response.getHeaders());
     }
 }
