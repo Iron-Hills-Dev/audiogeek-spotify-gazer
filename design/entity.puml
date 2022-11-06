@@ -1,0 +1,45 @@
+
+@startuml
+
+hide circle
+skinparam linetype ortho
+
+entity "album" as album {
+  *id : uuid <<generated>>
+  --
+  *provider_id : varchar
+  *title : varchar
+  *release_date : date
+}
+
+entity "artist" as artist {
+  *id : uuid <<generated>>
+  --
+  *provider_id : varchar
+  *name : varchar
+}
+
+entity "genre" as genre {
+  *id : uuid <<generated>>
+  --
+  *name : varchar
+}
+
+entity "album_artist" as albumArtist {
+  *album_id : uuid <<PK,FK1>>
+  *artist_id : uuid <<PK,FK2>>
+  --
+}
+
+entity "album_genre" as albumGenre {
+  *album_id : uuid <<PK,FK1>>
+  *genre_id : uuid <<PK,FK2>>
+  --
+}
+
+album ||..o{ albumArtist
+album ||..o{ albumGenre
+albumArtist }o..|| artist
+albumGenre }o..|| genre
+
+@enduml
