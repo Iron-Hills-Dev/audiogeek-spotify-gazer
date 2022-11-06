@@ -15,7 +15,6 @@ import java.util.Set;
 
 import static java.util.Optional.empty;
 import static java.util.stream.Collectors.toSet;
-import static org.codebusters.audiogeek.spotifygazer.domain.util.DtoUtils.convertToString;
 
 @Builder
 @Slf4j
@@ -99,7 +98,7 @@ class SpotifyNewReleasesFlowAdapter implements NewReleasesFlowPort {
 
 
     private Optional<Album> getAlbumWithGenres(String token, Album album) {
-        log.trace("Adding genres to album: {}", convertToString(album));
+        log.trace("Adding genres to album: {}", album);
         var genres = getAlbumGenres(token, album);
         if (genres.isEmpty()) {
             log.error("Genres are empty, skipping album");

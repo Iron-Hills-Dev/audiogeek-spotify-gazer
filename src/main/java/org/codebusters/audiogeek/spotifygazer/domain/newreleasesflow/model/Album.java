@@ -5,6 +5,7 @@ import lombok.NonNull;
 import lombok.With;
 
 import java.net.URI;
+import java.time.LocalDate;
 import java.util.Set;
 
 /**
@@ -20,7 +21,7 @@ import java.util.Set;
 public record Album(@NonNull String id,
                     @NonNull String title,
                     @NonNull Set<Artist> artists,
-                    @NonNull String releaseDate, //TODO change to LocalDate object\
+                    @NonNull LocalDate releaseDate,
                     @With Set<String> genres,
                     @NonNull URI link) {
 }
