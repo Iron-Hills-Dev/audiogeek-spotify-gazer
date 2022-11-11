@@ -14,7 +14,11 @@ import static javax.persistence.FetchType.EAGER;
 
 @Entity
 @Builder
-@Table(name = "album")
+@Table(
+        name = "album",
+        uniqueConstraints = {@UniqueConstraint(name = "a_title_releaseDate_uk", columnNames = {"title", "release_date"})},
+        indexes = {@Index(name = "a_releaseDate_idx", columnList = "release_date")}
+)
 public class AlbumEntity {
     @Id
     @GeneratedValue

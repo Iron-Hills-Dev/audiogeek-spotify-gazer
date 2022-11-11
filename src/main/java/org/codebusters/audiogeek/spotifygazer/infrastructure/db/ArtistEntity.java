@@ -9,7 +9,10 @@ import java.util.UUID;
 
 @Entity
 @NoArgsConstructor
-@Table(name = "artist")
+@Table(
+        name = "artist",
+        uniqueConstraints = {@UniqueConstraint(name = "ar_name_serviceId_uk", columnNames = {"name", "service_id"})}
+)
 public class ArtistEntity {
     @Id
     @Getter

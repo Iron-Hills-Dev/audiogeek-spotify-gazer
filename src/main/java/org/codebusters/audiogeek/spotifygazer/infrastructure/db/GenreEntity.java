@@ -9,7 +9,10 @@ import java.util.UUID;
 
 @Entity
 @NoArgsConstructor
-@Table(name = "genre")
+@Table(
+        name = "genre",
+        uniqueConstraints = {@UniqueConstraint(name = "g_name_uk", columnNames = "name")}
+)
 public class GenreEntity {
     @Id
     @Getter
@@ -19,7 +22,7 @@ public class GenreEntity {
 
     @Getter
     @Setter
-    @Column(name = "name", length = 100)
+    @Column(name = "name", length = 100, nullable = false)
     private String name;
 
     public GenreEntity(String name) {
