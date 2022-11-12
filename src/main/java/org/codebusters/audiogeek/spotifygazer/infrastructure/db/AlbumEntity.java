@@ -1,8 +1,6 @@
 package org.codebusters.audiogeek.spotifygazer.infrastructure.db;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -14,6 +12,9 @@ import static javax.persistence.FetchType.EAGER;
 
 @Entity
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
 @Table(
         name = "album",
         uniqueConstraints = {@UniqueConstraint(name = "a_title_releaseDate_uk", columnNames = {"title", "release_date"})},
@@ -28,7 +29,7 @@ public class AlbumEntity {
 
     @Getter
     @Setter
-    @Column(name = "provider_id")
+    @Column(name = "provider_id", length = 100)
     private String providerId;
 
     @Getter
@@ -40,6 +41,11 @@ public class AlbumEntity {
     @Setter
     @Column(name = "release_date")
     private LocalDate releaseDate;
+
+    @Getter
+    @Setter
+    @Column(name = "provider_link", length = 500)
+    private String providerLink;
 
     @ManyToMany(cascade = PERSIST, fetch = EAGER)
     @JoinTable(

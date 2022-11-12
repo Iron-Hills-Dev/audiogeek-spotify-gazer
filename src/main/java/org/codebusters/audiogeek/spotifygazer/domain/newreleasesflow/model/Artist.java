@@ -2,6 +2,7 @@ package org.codebusters.audiogeek.spotifygazer.domain.newreleasesflow.model;
 
 import lombok.Builder;
 import lombok.NonNull;
+import org.codebusters.audiogeek.spotifygazer.infrastructure.db.ArtistEntity;
 
 /**
  * Artist, entity responsible for creating album.
@@ -10,4 +11,9 @@ import lombok.NonNull;
  */
 @Builder
 public record Artist(@NonNull String id, @NonNull String name) {
+
+
+    public ArtistEntity convertToArtistEntity() {
+        return new ArtistEntity(this.id, this.name);
+    }
 }

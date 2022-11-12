@@ -11,7 +11,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @Table(
         name = "artist",
-        uniqueConstraints = {@UniqueConstraint(name = "ar_name_serviceId_uk", columnNames = {"name", "service_id"})}
+        uniqueConstraints = {@UniqueConstraint(name = "ar_name_providerId_uk", columnNames = {"name", "provider_id"})}
 )
 public class ArtistEntity {
     @Id
@@ -22,16 +22,16 @@ public class ArtistEntity {
 
     @Getter
     @Setter
-    @Column(name = "service_id", length = 100)
-    private String serviceId;
+    @Column(name = "provider_id", length = 100)
+    private String providerId;
 
     @Getter
     @Setter
-    @Column(name = "name", length = 100)
+    @Column(name = "name")
     private String name;
 
-    public ArtistEntity(String serviceId, String name) {
-        this.serviceId = serviceId;
+    public ArtistEntity(String providerId, String name) {
+        this.providerId = providerId;
         this.name = name;
     }
 }

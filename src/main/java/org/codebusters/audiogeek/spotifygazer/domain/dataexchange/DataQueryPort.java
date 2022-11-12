@@ -11,8 +11,8 @@ import org.springframework.data.domain.Pageable;
 public interface DataQueryPort {
     /**
      * Gets all albums in data storage
-     * @param pageable pageable object
      *
+     * @param pageable pageable object
      * @return NewReleases object with all albums
      */
     Page<Album> getAlbums(Pageable pageable);
