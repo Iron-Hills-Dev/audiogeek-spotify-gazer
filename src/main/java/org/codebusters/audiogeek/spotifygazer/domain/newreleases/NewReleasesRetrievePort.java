@@ -1,13 +1,13 @@
-package org.codebusters.audiogeek.spotifygazer.domain.newreleasesflow;
+package org.codebusters.audiogeek.spotifygazer.domain.newreleases;
 
-import org.codebusters.audiogeek.spotifygazer.domain.newreleasesflow.model.NewReleases;
+import org.codebusters.audiogeek.spotifygazer.domain.newreleases.model.NewReleases;
 
 import java.util.Optional;
 
 /**
  * Interface for getting new releases.
  */
-public interface NewReleasesFlowPort {
+public interface NewReleasesRetrievePort {
     /**
      * Gets new music releases.
      *

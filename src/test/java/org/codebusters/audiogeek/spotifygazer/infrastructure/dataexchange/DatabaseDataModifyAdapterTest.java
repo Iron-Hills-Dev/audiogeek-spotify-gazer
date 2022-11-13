@@ -1,8 +1,8 @@
 package org.codebusters.audiogeek.spotifygazer.infrastructure.dataexchange;
 
 import org.codebusters.audiogeek.spotifygazer.domain.dataexchange.model.AddAlbumCommand;
-import org.codebusters.audiogeek.spotifygazer.domain.newreleasesflow.model.Album;
-import org.codebusters.audiogeek.spotifygazer.domain.newreleasesflow.model.Artist;
+import org.codebusters.audiogeek.spotifygazer.domain.newreleases.model.Album;
+import org.codebusters.audiogeek.spotifygazer.domain.newreleases.model.Artist;
 import org.codebusters.audiogeek.spotifygazer.infrastructure.db.AlbumEntity;
 import org.codebusters.audiogeek.spotifygazer.infrastructure.db.ArtistEntity;
 import org.codebusters.audiogeek.spotifygazer.infrastructure.db.GenreEntity;
