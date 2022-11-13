@@ -1,6 +1,6 @@
 package org.codebusters.audiogeek.spotifygazer.domain.dataexchange.model;
 
-import org.codebusters.audiogeek.spotifygazer.domain.newreleasesflow.model.Album;
+import org.codebusters.audiogeek.spotifygazer.domain.newreleases.model.Album;
 
 /**
  * Command for adding album

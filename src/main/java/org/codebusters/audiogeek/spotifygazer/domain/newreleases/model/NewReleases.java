@@ -1,4 +1,4 @@
-package org.codebusters.audiogeek.spotifygazer.domain.newreleasesflow.model;
+package org.codebusters.audiogeek.spotifygazer.domain.newreleases.model;
 
 import java.util.Set;
 

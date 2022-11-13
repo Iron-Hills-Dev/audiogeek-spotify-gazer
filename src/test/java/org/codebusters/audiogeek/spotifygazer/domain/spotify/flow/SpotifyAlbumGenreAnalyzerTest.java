@@ -1,7 +1,7 @@
 package org.codebusters.audiogeek.spotifygazer.domain.spotify.flow;
 
 import org.assertj.core.api.Assertions;
-import org.codebusters.audiogeek.spotifygazer.domain.newreleasesflow.model.Artist;
+import org.codebusters.audiogeek.spotifygazer.domain.newreleases.model.Artist;
 import org.codebusters.audiogeek.spotifygazer.domain.spotify.connection.model.SpotifyArtistResponse;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;

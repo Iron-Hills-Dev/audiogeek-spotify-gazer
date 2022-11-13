@@ -2,9 +2,9 @@ package org.codebusters.audiogeek.spotifygazer.domain.spotify.flow;
 
 import lombok.Builder;
 import lombok.extern.slf4j.Slf4j;
-import org.codebusters.audiogeek.spotifygazer.domain.newreleasesflow.NewReleasesFlowPort;
-import org.codebusters.audiogeek.spotifygazer.domain.newreleasesflow.model.Album;
-import org.codebusters.audiogeek.spotifygazer.domain.newreleasesflow.model.NewReleases;
+import org.codebusters.audiogeek.spotifygazer.domain.newreleases.NewReleasesRetrievePort;
+import org.codebusters.audiogeek.spotifygazer.domain.newreleases.model.Album;
+import org.codebusters.audiogeek.spotifygazer.domain.newreleases.model.NewReleases;
 import org.codebusters.audiogeek.spotifygazer.domain.spotify.connection.SpotifyConnectionPort;
 import org.codebusters.audiogeek.spotifygazer.domain.spotify.connection.exception.SpotifyConnectionException;
 import org.codebusters.audiogeek.spotifygazer.domain.spotify.connection.model.SpotifyNewReleasesAlbum;
@@ -18,7 +18,7 @@ import static java.util.stream.Collectors.toSet;
 
 @Builder
 @Slf4j
-class SpotifyNewReleasesFlowAdapter implements NewReleasesFlowPort {
+class SpotifyNewReleasesRetrieveAdapter implements NewReleasesRetrievePort {
 
     private final SpotifyConnectionPort connectionPort;
     private final int releasesPageLength;

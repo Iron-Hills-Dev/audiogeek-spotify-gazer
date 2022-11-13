@@ -2,7 +2,7 @@ package org.codebusters.audiogeek.spotifygazer.domain.spotify.flow;
 
 import lombok.Builder;
 import lombok.extern.slf4j.Slf4j;
-import org.codebusters.audiogeek.spotifygazer.domain.newreleasesflow.model.Artist;
+import org.codebusters.audiogeek.spotifygazer.domain.newreleases.model.Artist;
 import org.codebusters.audiogeek.spotifygazer.domain.spotify.connection.model.SpotifyArtistResponse;
 
 import java.util.LinkedHashSet;

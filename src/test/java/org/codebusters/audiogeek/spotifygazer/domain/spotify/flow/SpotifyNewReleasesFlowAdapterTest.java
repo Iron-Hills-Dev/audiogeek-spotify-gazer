@@ -2,7 +2,7 @@ package org.codebusters.audiogeek.spotifygazer.domain.spotify.flow;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import org.codebusters.audiogeek.spotifygazer.domain.newreleasesflow.model.NewReleases;
+import org.codebusters.audiogeek.spotifygazer.domain.newreleases.model.NewReleases;
 import org.codebusters.audiogeek.spotifygazer.domain.spotify.connection.SpotifyConnectionPort;
 import org.codebusters.audiogeek.spotifygazer.domain.spotify.connection.exception.SpotifyConnectionException;
 import org.codebusters.audiogeek.spotifygazer.domain.spotify.connection.model.SpotifyNewReleasesResponse;
@@ -42,7 +42,7 @@ class SpotifyNewReleasesFlowAdapterTest {
     private static SpotifyServerMock spotifyServerMock;
 
     @Autowired
-    private SpotifyNewReleasesFlowAdapter sut;
+    private SpotifyNewReleasesRetrieveAdapter sut;
     @SpyBean
     private SpotifyConnectionPort connectionPort;
 
