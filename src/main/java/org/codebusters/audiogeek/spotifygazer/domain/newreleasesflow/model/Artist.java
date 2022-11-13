@@ -5,7 +5,8 @@ import lombok.NonNull;
 
 /**
  * Artist, entity responsible for creating album.
- * @param id artist id.
+ *
+ * @param id   artist id.
  * @param name arist's stage name.
  */
 @Builder

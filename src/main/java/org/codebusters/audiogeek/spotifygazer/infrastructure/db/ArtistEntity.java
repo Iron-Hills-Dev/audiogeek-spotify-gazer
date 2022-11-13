@@ -1,37 +1,45 @@
 package org.codebusters.audiogeek.spotifygazer.infrastructure.db;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.codebusters.audiogeek.spotifygazer.domain.newreleasesflow.model.Artist;
 
 import javax.persistence.*;
 import java.util.UUID;
 
 @Entity
 @NoArgsConstructor
+@EqualsAndHashCode
 @Table(
         name = "artist",
-        uniqueConstraints = {@UniqueConstraint(name = "ar_name_serviceId_uk", columnNames = {"name", "service_id"})}
+        uniqueConstraints = {@UniqueConstraint(name = "ar_name_providerId_uk", columnNames = {"name", "provider_id"})}
 )
 public class ArtistEntity {
     @Id
     @Getter
     @GeneratedValue
     @Column(name = "id")
+    @EqualsAndHashCode.Exclude
     private UUID id;
 
     @Getter
     @Setter
-    @Column(name = "service_id", length = 100)
-    private String serviceId;
+    @Column(name = "provider_id", length = 100)
+    private String providerId;
 
     @Getter
     @Setter
-    @Column(name = "name", length = 100)
+    @Column(name = "name")
     private String name;
 
-    public ArtistEntity(String serviceId, String name) {
-        this.serviceId = serviceId;
+    public ArtistEntity(String providerId, String name) {
+        this.providerId = providerId;
         this.name = name;
+    }
+
+    public static ArtistEntity fromArtist(Artist artist) {
+        return new ArtistEntity(artist.id(), artist.name());
     }
 }
