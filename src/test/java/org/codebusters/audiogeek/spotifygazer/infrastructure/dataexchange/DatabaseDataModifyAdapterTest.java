@@ -11,7 +11,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.net.URI;
 import java.time.LocalDate;
@@ -41,26 +40,32 @@ class DatabaseDataModifyAdapterTest {
     }
 
     @Test
-    @Transactional
     void addAlbumCorrect() {
+        // given
         var album = createTestAlbum();
+
+        // when
         var albumId = adapter.addAlbum(new AddAlbumCommand(album));
+        assertThat(albumId).isNotEmpty();
 
-        var albumEntity = albumRepo.findById(albumId);
-
+        // then
+        var albumEntity = albumRepo.findById(albumId.get());
         assertThat(albumEntity).isNotEmpty();
-        assertThat(albumEntity.get().getId()).isEqualTo(albumId);
+        assertThat(albumEntity.get().getId()).isEqualTo(albumId.get());
 
     }
 
     @Test
-    @Transactional
     void addAlbumDuplicate() {
+        // given
         var album = createTestAlbum();
-        var albumId1 = adapter.addAlbum(new AddAlbumCommand(album));
-        var albumId2 = adapter.addAlbum(new AddAlbumCommand(album));
 
-        assertThat(albumId1).isEqualTo(albumId2);
+        // when
+        adapter.addAlbum(new AddAlbumCommand(album));
+        var albumId = adapter.addAlbum(new AddAlbumCommand(album));
+
+        // then
+        assertThat(albumId).isEmpty();
     }
 
     private Album createTestAlbum() {

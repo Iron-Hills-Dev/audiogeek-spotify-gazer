@@ -3,6 +3,7 @@ package org.codebusters.audiogeek.spotifygazer.domain.dataexchange;
 import org.codebusters.audiogeek.spotifygazer.domain.dataexchange.model.AddAlbumCommand;
 import org.codebusters.audiogeek.spotifygazer.domain.dataexchange.model.RemoveAlbumCommand;
 
+import java.util.Optional;
 import java.util.UUID;
 
 /**
@@ -15,7 +16,7 @@ public interface DataModifyPort {
      * @param cmd Command for adding album
      * @return Optional UUID of newly added album
      */
-    UUID addAlbum(AddAlbumCommand cmd);
+    Optional<UUID> addAlbum(AddAlbumCommand cmd);
 
     /**
      * Removes album from data storage
