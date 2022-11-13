@@ -1,14 +1,17 @@
 package org.codebusters.audiogeek.spotifygazer.infrastructure.db;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.codebusters.audiogeek.spotifygazer.domain.newreleasesflow.model.Artist;
 
 import javax.persistence.*;
 import java.util.UUID;
 
 @Entity
 @NoArgsConstructor
+@EqualsAndHashCode
 @Table(
         name = "artist",
         uniqueConstraints = {@UniqueConstraint(name = "ar_name_providerId_uk", columnNames = {"name", "provider_id"})}
@@ -18,6 +21,7 @@ public class ArtistEntity {
     @Getter
     @GeneratedValue
     @Column(name = "id")
+    @EqualsAndHashCode.Exclude
     private UUID id;
 
     @Getter
@@ -33,5 +37,9 @@ public class ArtistEntity {
     public ArtistEntity(String providerId, String name) {
         this.providerId = providerId;
         this.name = name;
+    }
+
+    public static ArtistEntity fromArtist(Artist artist) {
+        return new ArtistEntity(artist.id(), artist.name());
     }
 }

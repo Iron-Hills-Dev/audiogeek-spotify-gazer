@@ -1,14 +1,14 @@
 package org.codebusters.audiogeek.spotifygazer.infrastructure.db;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.UUID;
 
 @Entity
+@ToString
 @NoArgsConstructor
+@EqualsAndHashCode
 @Table(
         name = "genre",
         uniqueConstraints = {@UniqueConstraint(name = "g_name_uk", columnNames = "name")}
@@ -18,6 +18,7 @@ public class GenreEntity {
     @Getter
     @GeneratedValue
     @Column(name = "id")
+    @EqualsAndHashCode.Exclude
     private UUID id;
 
     @Getter

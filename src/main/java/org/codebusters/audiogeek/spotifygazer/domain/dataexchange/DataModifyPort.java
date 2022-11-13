@@ -14,7 +14,7 @@ public interface DataModifyPort {
      * Adds album to data storage
      *
      * @param cmd Command for adding album
-     * @return Optional UUID of newly added album
+     * @return Optional UUID of newly added album or empty, if album already exists
      */
     Optional<UUID> addAlbum(AddAlbumCommand cmd);
 

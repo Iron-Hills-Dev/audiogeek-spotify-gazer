@@ -19,10 +19,11 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 import static java.util.Optional.empty;
 import static java.util.Optional.of;
+import static java.util.stream.Collectors.toSet;
+import static org.codebusters.audiogeek.spotifygazer.infrastructure.db.ArtistEntity.fromArtist;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -36,15 +37,14 @@ class DatabaseDataModifyAdapter implements DataModifyPort {
     @Override
     @Transactional
     public Optional<UUID> addAlbum(AddAlbumCommand cmd) {
-        log.debug("Saving album in database: cmd={}", cmd);
+        log.debug("Processing add album command: cmd={}", cmd);
         var album = cmd.album();
 
         var albumUUID = findAlbumId(album);
         if (albumUUID.isPresent()) {
-            log.debug("Album already exists - skipping: id={}", albumUUID);
-            return handleAlbumExists();
+            return handleAlbumExists(albumUUID.get());
         }
-        return handleCorrectCreation(album);
+        return handleAlbumCreation(album);
     }
 
     @Override
@@ -52,7 +52,7 @@ class DatabaseDataModifyAdapter implements DataModifyPort {
 
     }
 
-    private Optional<UUID> handleCorrectCreation(Album album) {
+    private Optional<UUID> handleAlbumCreation(Album album) {
         var albumEntity = AlbumEntity.builder()
                 .title(album.title())
                 .providerId(album.id())
@@ -61,52 +61,43 @@ class DatabaseDataModifyAdapter implements DataModifyPort {
                 .artists(getArtistEntities(album.artists()))
                 .genres(getGenreEntities(album.genres()))
                 .build();
-        log.trace("Saving album to database...");
         albumEntity = albumRepo.save(albumEntity);
         log.debug("Album saved successfully: id={}", albumEntity.getId());
         return of(albumEntity.getId());
     }
 
-    private Optional<UUID> handleAlbumExists() {
+    private Optional<UUID> handleAlbumExists(UUID albumUUID) {
+        log.debug("Album already exists - skipping: id={}", albumUUID);
         return empty();
     }
 
     private Optional<UUID> findAlbumId(Album album) {
-        var albumEntity = albumRepo.findByTitleAndReleaseDate(album.title(), album.releaseDate());
-        if (albumEntity.isEmpty()) {
-            log.trace("Album do not exist yet");
-            return empty();
-        }
-        return of(albumEntity.get().getId());
+        return albumRepo.findByTitleAndReleaseDate(album.title(), album.releaseDate())
+                .map(AlbumEntity::getId);
     }
 
     private Set<ArtistEntity> getArtistEntities(Set<Artist> artists) {
         log.trace("Getting artist entities set");
         return artists.stream()
-                .map(this::findArtistEntity)
-                .collect(Collectors.toSet());
+                .map(this::findOrCreateNewArtistEntity)
+                .collect(toSet());
     }
 
     private Set<GenreEntity> getGenreEntities(Set<String> genres) {
         log.trace("Getting genre entities set");
         return genres.stream()
-                .map(this::findGenreEntity)
-                .collect(Collectors.toSet());
+                .map(this::findOrCreateNewGenreEntity)
+                .collect(toSet());
     }
 
-    private ArtistEntity findArtistEntity(Artist artist) {
-        return artistRepo
-                .findByName(artist.name())
-                .orElseGet(() -> convertToArtistEntity(artist));
+    private ArtistEntity findOrCreateNewArtistEntity(Artist artist) {
+        return artistRepo.findByNameAndProviderId(artist.name(), artist.id())
+                .orElseGet(() -> fromArtist(artist));
     }
 
-    private GenreEntity findGenreEntity(String genre) {
-        return genreRepo
-                .findByName(genre)
+    private GenreEntity findOrCreateNewGenreEntity(String genre) {
+        return genreRepo.findByName(genre)
                 .orElseGet(() -> new GenreEntity(genre));
     }
 
-    private ArtistEntity convertToArtistEntity(Artist artist) {
-        return new ArtistEntity(artist.id(), artist.name());
-    }
 }

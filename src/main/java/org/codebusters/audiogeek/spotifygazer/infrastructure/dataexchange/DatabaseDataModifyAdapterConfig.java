@@ -12,11 +12,9 @@ import org.springframework.context.annotation.Configuration;
 class DatabaseDataModifyAdapterConfig {
 
     @Bean
-    DatabaseDataModifyAdapter databaseDataModifyAdapter(
-            AlbumRepository albumRepo,
-            GenreRepository genreRepo,
-            ArtistRepository artistRepo
-    ) {
+    DatabaseDataModifyAdapter databaseDataModifyAdapter(AlbumRepository albumRepo,
+                                                        GenreRepository genreRepo,
+                                                        ArtistRepository artistRepo) {
         log.info("Initializing DatabaseDataModifyAdapter");
         return DatabaseDataModifyAdapter.builder()
                 .albumRepo(albumRepo)

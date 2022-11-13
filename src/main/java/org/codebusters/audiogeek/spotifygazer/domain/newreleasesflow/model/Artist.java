@@ -11,6 +11,4 @@ import lombok.NonNull;
  */
 @Builder
 public record Artist(@NonNull String id, @NonNull String name) {
-
-
 }

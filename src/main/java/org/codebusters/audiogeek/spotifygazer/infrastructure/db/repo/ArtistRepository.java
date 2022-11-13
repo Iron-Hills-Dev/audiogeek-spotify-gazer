@@ -7,5 +7,5 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface ArtistRepository extends JpaRepository<ArtistEntity, UUID> {
-    Optional<ArtistEntity> findByName(String name);
+    Optional<ArtistEntity> findByNameAndProviderId(String name, String providerId);
 }
