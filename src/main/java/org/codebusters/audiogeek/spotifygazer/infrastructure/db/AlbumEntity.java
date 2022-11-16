@@ -47,6 +47,8 @@ public class AlbumEntity {
     @Column(name = "provider_link", length = 500)
     private String providerLink;
 
+
+    @Getter
     @ManyToMany(cascade = PERSIST, fetch = EAGER)
     @JoinTable(
             name = "album_genre",
@@ -54,6 +56,7 @@ public class AlbumEntity {
             inverseJoinColumns = @JoinColumn(name = "genre_id", foreignKey = @ForeignKey(name = "ag_genreId_fk")))
     private Set<GenreEntity> genres;
 
+    @Getter
     @ManyToMany(cascade = PERSIST, fetch = EAGER)
     @JoinTable(
             name = "album_artist",

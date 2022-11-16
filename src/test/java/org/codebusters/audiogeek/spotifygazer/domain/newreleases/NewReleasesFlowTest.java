@@ -1,0 +1,63 @@
+package org.codebusters.audiogeek.spotifygazer.domain.newreleases;
+
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import org.codebusters.audiogeek.spotifygazer.domain.newreleases.model.Album;
+import org.codebusters.audiogeek.spotifygazer.infrastructure.db.repo.AlbumRepository;
+import org.codebusters.audiogeek.spotifygazer.util.SpotifyServerMock;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
+
+import java.io.IOException;
+import java.nio.file.Path;
+import java.util.Set;
+
+import static com.fasterxml.jackson.databind.SerializationFeature.WRITE_DATES_AS_TIMESTAMPS;
+import static java.util.stream.Collectors.toSet;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.codebusters.audiogeek.spotifygazer.infrastructure.dataexchange.util.DatabaseUtils.convertToAlbum;
+
+
+@SpringBootTest
+@ActiveProfiles("test")
+class NewReleasesFlowTest {
+    private static final ObjectMapper MAPPER = new ObjectMapper()
+            .registerModule(new JavaTimeModule())
+            .disable(WRITE_DATES_AS_TIMESTAMPS);
+    private static SpotifyServerMock spotifyServerMock;
+
+    @Autowired
+    private NewReleasesFlowPort sut;
+    @Autowired
+    private AlbumRepository albumRepo;
+
+    @BeforeAll
+    static void startWiremock() {
+        spotifyServerMock = new SpotifyServerMock();
+        spotifyServerMock.start();
+    }
+
+    @AfterAll
+    static void stopWiremock() {
+        spotifyServerMock.stop();
+    }
+
+    @Test
+    void correctFlowWithDatabase() throws IOException {
+        var expectedModel = MAPPER.readValue(Path.of("src/test/resources/newreleases/flow-correct.model.json").toFile(), OutputModel.class).releases();
+        sut.run();
+        var releases = getSavedReleases();
+        assertThat(releases).usingRecursiveComparison().ignoringCollectionOrder().isEqualTo(expectedModel);
+    }
+
+    private Set<Album> getSavedReleases() {
+        return albumRepo.findAll().stream()
+                .map(a -> convertToAlbum(a, a.getArtists(), a.getGenres()))
+                .collect(toSet());
+    }
+}

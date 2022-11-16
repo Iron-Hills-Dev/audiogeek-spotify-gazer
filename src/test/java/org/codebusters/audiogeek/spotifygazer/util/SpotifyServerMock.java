@@ -110,6 +110,14 @@ public class SpotifyServerMock {
                 .willReturn(ok()
                         .withHeader(CONTENT_TYPE_HEADER_TITLE, APPLICATION_JSON_VALUE)
                         .withBody(readAllBytes(NEW_RELEASES_CORRECT_RESPONSE_2_2))));
+
+        server.stubFor(get("/v1/browse/new-releases?offset=0&limit=20")
+                .withHeader(AUTHORIZATION_HEADER_TITLE, equalTo(AUTHORIZATION_HEADER_BEARER_VALUE))
+                .withHeader(ACCEPT_HEADER_TITLE, containing(APPLICATION_JSON_VALUE))
+                .withQueryParams(Map.of("offset", equalTo("0"), "limit", equalTo("20")))
+                .willReturn(ok()
+                        .withHeader(CONTENT_TYPE_HEADER_TITLE, APPLICATION_JSON_VALUE)
+                        .withBody(readAllBytes(NEW_RELEASES_CORRECT_RESPONSE_0_2))));
     }
 
     private void configureGetArtist() throws IOException {
