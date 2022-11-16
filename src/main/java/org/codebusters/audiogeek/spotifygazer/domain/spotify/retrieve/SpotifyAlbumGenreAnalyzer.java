@@ -1,4 +1,4 @@
-package org.codebusters.audiogeek.spotifygazer.domain.spotify.flow;
+package org.codebusters.audiogeek.spotifygazer.domain.spotify.retrieve;
 
 import lombok.Builder;
 import lombok.extern.slf4j.Slf4j;

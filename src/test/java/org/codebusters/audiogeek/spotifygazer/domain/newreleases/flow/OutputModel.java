@@ -1,4 +1,4 @@
-package org.codebusters.audiogeek.spotifygazer.domain.newreleases;
+package org.codebusters.audiogeek.spotifygazer.domain.newreleases.flow;
 
 import org.codebusters.audiogeek.spotifygazer.domain.newreleases.model.Album;
 

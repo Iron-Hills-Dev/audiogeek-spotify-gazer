@@ -7,6 +7,7 @@ import org.codebusters.audiogeek.spotifygazer.infrastructure.db.repo.AlbumReposi
 import org.codebusters.audiogeek.spotifygazer.infrastructure.db.repo.ArtistRepository;
 import org.codebusters.audiogeek.spotifygazer.infrastructure.db.repo.GenreRepository;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -40,6 +41,7 @@ class DatabaseDataModifyAdapterTest {
     }
 
     @Test
+    @DisplayName("addAlbum - correct")
     void addAlbumCorrect() {
         // given
         var album = createTestAlbum();
@@ -61,6 +63,7 @@ class DatabaseDataModifyAdapterTest {
     }
 
     @Test
+    @DisplayName("addAlbum - should return empty() when trying to add duplicate")
     void addAlbumDuplicate() {
         // given
         var album = createTestAlbum();
