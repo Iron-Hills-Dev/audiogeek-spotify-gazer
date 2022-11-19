@@ -1,4 +1,4 @@
-package org.codebusters.audiogeek.spotifygazer.domain.spotify.flow;
+package org.codebusters.audiogeek.spotifygazer.domain.spotify.retrieve;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
@@ -29,13 +29,13 @@ import static org.mockito.Mockito.doThrow;
 
 @SpringBootTest
 @ActiveProfiles("test")
-class SpotifyNewReleasesFlowAdapterTest {
+class SpotifyNewReleasesRetrieveAdapterTest {
 
-    private static final Path NEW_RELEASES_CORRECT_MODEL = Path.of("src/test/resources/spotify/flow/model-get-releases-correct.json");
-    private static final Path NEW_RELEASES_CORRUPTED_RELEASES_MODEL = Path.of("src/test/resources/spotify/flow/model-get-releases-corrupted-releases.json");
-    private static final Path GET_NEW_RELEASES_CORRUPTED_RESPONSE_0_2 = Path.of("src/test/resources/spotify/connection/new-releases/response-corrupted-0-2.json");
-    private static final Path NEW_RELEASES_CORRUPTED_ALBUM_MODEL = Path.of("src/test/resources/spotify/flow/model-get-releases-corrupted-album.json");
-    private static final Path NEW_RELEASES_ARTIST_ERROR_MODEL = Path.of("src/test/resources/spotify/flow/model-get-releases-artist-error.json");
+    private static final Path NEW_RELEASES_CORRECT_MODEL = Path.of("src/test/resources/spotify/retrieve/get-releases-correct.model.json");
+    private static final Path NEW_RELEASES_CORRUPTED_RELEASES_MODEL = Path.of("src/test/resources/spotify/retrieve/get-releases-corrupted.model.json");
+    private static final Path GET_NEW_RELEASES_CORRUPTED_RESPONSE = Path.of("src/test/resources/spotify/connection/new-releases/new-releases-corrupted-0-2.response.json");
+    private static final Path NEW_RELEASES_CORRUPTED_ALBUM_MODEL = Path.of("src/test/resources/spotify/retrieve/get-releases-corrupted-album.model.json");
+    private static final Path NEW_RELEASES_ARTIST_ERROR_MODEL = Path.of("src/test/resources/spotify/retrieve/get-releases-artist-error.model.json");
     private static final ObjectMapper MAPPER = new ObjectMapper()
             .registerModule(new JavaTimeModule())
             .disable(WRITE_DATES_AS_TIMESTAMPS);
@@ -124,7 +124,7 @@ class SpotifyNewReleasesFlowAdapterTest {
     @DisplayName("getNewReleases - should ignore corrupted album")
     void getNewReleasesCorruptedAlbum() throws IOException {
         //given
-        doReturn(MAPPER.readValue(GET_NEW_RELEASES_CORRUPTED_RESPONSE_0_2.toFile(), SpotifyNewReleasesResponse.class))
+        doReturn(MAPPER.readValue(GET_NEW_RELEASES_CORRUPTED_RESPONSE.toFile(), SpotifyNewReleasesResponse.class))
                 .when(connectionPort).getNewReleases(TOKEN, 0, 2);
         var expectedModel = MAPPER.readValue(NEW_RELEASES_CORRUPTED_ALBUM_MODEL.toFile(), NewReleases.class);
 

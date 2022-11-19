@@ -1,4 +1,4 @@
-package org.codebusters.audiogeek.spotifygazer.domain.spotify.flow;
+package org.codebusters.audiogeek.spotifygazer.domain.spotify.retrieve;
 
 import lombok.extern.slf4j.Slf4j;
 import org.codebusters.audiogeek.spotifygazer.domain.newreleases.NewReleasesRetrievePort;
@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Configuration;
 
 @Slf4j
 @Configuration
-class SpotifyNewReleasesFlowConfig {
+class SpotifyNewReleasesRetrieveConfig {
 
     @Bean
     NewReleasesRetrievePort spotifyNewReleasesFlowAdapter(SpotifyConnectionPort connectionPort,

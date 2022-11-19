@@ -3,13 +3,11 @@ package org.codebusters.audiogeek.spotifygazer.infrastructure.dataexchange;
 import org.codebusters.audiogeek.spotifygazer.domain.dataexchange.model.AddAlbumCommand;
 import org.codebusters.audiogeek.spotifygazer.domain.newreleases.model.Album;
 import org.codebusters.audiogeek.spotifygazer.domain.newreleases.model.Artist;
-import org.codebusters.audiogeek.spotifygazer.infrastructure.db.AlbumEntity;
-import org.codebusters.audiogeek.spotifygazer.infrastructure.db.ArtistEntity;
-import org.codebusters.audiogeek.spotifygazer.infrastructure.db.GenreEntity;
 import org.codebusters.audiogeek.spotifygazer.infrastructure.db.repo.AlbumRepository;
 import org.codebusters.audiogeek.spotifygazer.infrastructure.db.repo.ArtistRepository;
 import org.codebusters.audiogeek.spotifygazer.infrastructure.db.repo.GenreRepository;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -18,10 +16,9 @@ import org.springframework.test.context.ActiveProfiles;
 import java.net.URI;
 import java.time.LocalDate;
 import java.util.Set;
-import java.util.UUID;
 
-import static java.util.stream.Collectors.toSet;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.codebusters.audiogeek.spotifygazer.infrastructure.dataexchange.util.EntityUtils.convertToEntity;
 
 @SpringBootTest
 @ActiveProfiles("test")
@@ -44,6 +41,7 @@ class DatabaseDataModifyAdapterTest {
     }
 
     @Test
+    @DisplayName("addAlbum - correct")
     void addAlbumCorrect() {
         // given
         var album = createTestAlbum();
@@ -65,6 +63,7 @@ class DatabaseDataModifyAdapterTest {
     }
 
     @Test
+    @DisplayName("addAlbum - should return empty() when trying to add duplicate")
     void addAlbumDuplicate() {
         // given
         var album = createTestAlbum();
@@ -75,30 +74,6 @@ class DatabaseDataModifyAdapterTest {
 
         // then
         assertThat(albumId).isEmpty();
-    }
-
-    private AlbumEntity convertToEntity(Album album, UUID albumId) {
-        return AlbumEntity.builder()
-                .id(albumId)
-                .providerId(album.id())
-                .title(album.title())
-                .providerLink(album.link().toString())
-                .releaseDate(album.releaseDate())
-                .artists(convertToArtistEntities(album.artists()))
-                .genres(convertToGenreEntities(album.genres()))
-                .build();
-    }
-
-    private Set<ArtistEntity> convertToArtistEntities(Set<Artist> artists) {
-        return artists.stream()
-                .map(ArtistEntity::fromArtist)
-                .collect(toSet());
-    }
-
-    private Set<GenreEntity> convertToGenreEntities(Set<String> genres) {
-        return genres.stream()
-                .map(GenreEntity::new)
-                .collect(toSet());
     }
 
     private Album createTestAlbum() {

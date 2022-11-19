@@ -28,7 +28,7 @@ import static org.codebusters.audiogeek.spotifygazer.util.SpotifyServerMock.TOKE
 @SpringBootTest
 class SpotifyConnectionAdapterTest {
 
-    private static final Path ARTIST_MODEL_PATH = Path.of("src/test/resources/spotify/connection/get-artist/model-correct-djkhaled.json");
+    private static final Path ARTIST_MODEL = Path.of("src/test/resources/spotify/connection/get-artist/correct-djkhaled.model.json");
     private static final ObjectMapper MAPPER = new ObjectMapper();
     private static SpotifyServerMock spotifyServerMock;
 
@@ -60,7 +60,7 @@ class SpotifyConnectionAdapterTest {
     }
 
     @ParameterizedTest
-    @CsvSource({"0,1,model-correct-0-1.json", "3,2,model-correct-3-2.json"})
+    @CsvSource({"0,1,new-releases-correct-0-1.model.json", "3,2,new-releases-correct-3-2.model.json"})
     @DisplayName("get new releases - should get correct new releases for given parameters")
     void getNewReleasesCorrect(int offset, int limit, String modelFilename) throws IOException {
         // given
@@ -90,7 +90,7 @@ class SpotifyConnectionAdapterTest {
     @DisplayName("get artist - should get correct artist according to ID")
     void getArtistCorrect() throws IOException {
         // given
-        var expectedModel = MAPPER.readValue(ARTIST_MODEL_PATH.toFile(), SpotifyArtistResponse.class);
+        var expectedModel = MAPPER.readValue(ARTIST_MODEL.toFile(), SpotifyArtistResponse.class);
 
         // when
         var response = sut.getArtist(TOKEN, "0QHgL1lAIqAw0HtD7YldmP");

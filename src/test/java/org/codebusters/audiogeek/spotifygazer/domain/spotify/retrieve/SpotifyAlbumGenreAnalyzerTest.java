@@ -1,4 +1,4 @@
-package org.codebusters.audiogeek.spotifygazer.domain.spotify.flow;
+package org.codebusters.audiogeek.spotifygazer.domain.spotify.retrieve;
 
 import org.assertj.core.api.Assertions;
 import org.codebusters.audiogeek.spotifygazer.domain.newreleases.model.Artist;
