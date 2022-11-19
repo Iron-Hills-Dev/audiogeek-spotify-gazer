@@ -12,7 +12,7 @@ import java.util.UUID;
 
 import static java.util.stream.Collectors.toSet;
 
-public class DatabaseUtils {
+public class EntityUtils {
     public static AlbumEntity convertToEntity(Album album, UUID albumId) {
         return AlbumEntity.builder()
                 .id(albumId)

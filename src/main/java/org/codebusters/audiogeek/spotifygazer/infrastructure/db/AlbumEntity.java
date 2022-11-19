@@ -12,6 +12,7 @@ import static javax.persistence.FetchType.EAGER;
 
 @Entity
 @Builder
+@Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
@@ -23,32 +24,26 @@ import static javax.persistence.FetchType.EAGER;
 public class AlbumEntity {
     @Id
     @GeneratedValue
-    @Getter
     @Column(name = "id")
     private UUID id;
 
-    @Getter
     @Setter
     @Column(name = "provider_id", length = 100)
     private String providerId;
 
-    @Getter
     @Setter
     @Column(name = "title")
     private String title;
 
-    @Getter
     @Setter
     @Column(name = "release_date")
     private LocalDate releaseDate;
 
-    @Getter
     @Setter
     @Column(name = "provider_link", length = 500)
     private String providerLink;
 
 
-    @Getter
     @ManyToMany(cascade = PERSIST, fetch = EAGER)
     @JoinTable(
             name = "album_genre",
@@ -56,7 +51,6 @@ public class AlbumEntity {
             inverseJoinColumns = @JoinColumn(name = "genre_id", foreignKey = @ForeignKey(name = "ag_genreId_fk")))
     private Set<GenreEntity> genres;
 
-    @Getter
     @ManyToMany(cascade = PERSIST, fetch = EAGER)
     @JoinTable(
             name = "album_artist",

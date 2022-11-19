@@ -18,7 +18,7 @@ import java.time.LocalDate;
 import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.codebusters.audiogeek.spotifygazer.infrastructure.dataexchange.util.DatabaseUtils.convertToEntity;
+import static org.codebusters.audiogeek.spotifygazer.infrastructure.dataexchange.util.EntityUtils.convertToEntity;
 
 @SpringBootTest
 @ActiveProfiles("test")
