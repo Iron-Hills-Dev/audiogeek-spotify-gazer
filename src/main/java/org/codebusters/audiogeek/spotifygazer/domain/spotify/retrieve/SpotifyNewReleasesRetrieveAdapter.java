@@ -64,7 +64,7 @@ class SpotifyNewReleasesRetrieveAdapter implements NewReleasesRetrievePort {
                 offset += releasesPageLength;
             }
         } while (offset < total);
-        log.trace("Retrieved raw new releases: {}", totalNewReleases);
+        log.debug("Retrieved raw new releases: {}", totalNewReleases);
         return totalNewReleases;
     }
 
@@ -78,7 +78,7 @@ class SpotifyNewReleasesRetrieveAdapter implements NewReleasesRetrievePort {
     }
 
     private Set<Album> addGenresToAlbums(Set<Album> albums, String token) {
-        log.trace("Adding genre info to albums");
+        log.debug("Adding genre info to albums");
         return albums.stream()
                 .map(a -> getAlbumWithGenres(token, a))
                 .filter(Optional::isPresent)
@@ -92,7 +92,7 @@ class SpotifyNewReleasesRetrieveAdapter implements NewReleasesRetrievePort {
             return empty();
         }
         var finalNewReleases = new NewReleases(albums);
-        log.debug("Got new releases: {}", finalNewReleases);
+        log.info("Got new releases: {}", finalNewReleases);
         return Optional.of(finalNewReleases);
     }
 
@@ -101,11 +101,11 @@ class SpotifyNewReleasesRetrieveAdapter implements NewReleasesRetrievePort {
         log.trace("Adding genres to album: {}", album);
         var genres = getAlbumGenres(token, album);
         if (genres.isEmpty()) {
-            log.error("Genres are empty, skipping album");
+            log.warn("Genres are empty, skipping album: album={}", album);
             return empty();
         }
         var albumWithGenres = album.withGenres(genres);
-        log.trace("Added genre to album: {}", albumWithGenres);
+        log.debug("Added genres to album: {}", albumWithGenres);
         return Optional.of(albumWithGenres);
     }
 

@@ -24,7 +24,6 @@ class SpotifyAlbumGenreAnalyzer {
     }
 
     private Set<String> getArtistsGenres(Set<Artist> artists, String token) {
-        log.trace("Getting genres from artists");
         var genres = new LinkedHashSet<String>();
         for (Artist artist : artists) {
             try {
