@@ -94,7 +94,7 @@ class SpotifyConnectionAdapter implements SpotifyConnectionPort {
         log.trace(RESPONSE_RECEIVED_LOG, response.getStatusCode(), "***", response.getHeaders());
 
         var token = response.getBody();
-        log.debug("Successfully retrieved Spotify access token");
+        log.trace("Successfully retrieved Spotify access token");
         return token;
     }
 
@@ -117,7 +117,7 @@ class SpotifyConnectionAdapter implements SpotifyConnectionPort {
                 .map(HttpNewReleasesResponse::albums)
                 .map(a -> new SpotifyNewReleasesResponse(a.toAlbumList(), a.total()))
                 .orElseThrow();
-        log.debug("Successfully collected Spotify new releases: {}", newReleases);
+        log.trace("Successfully collected Spotify new releases: {}", newReleases);
         return newReleases;
     }
 
@@ -136,7 +136,7 @@ class SpotifyConnectionAdapter implements SpotifyConnectionPort {
         logResponse(response);
 
         var artist = response.getBody();
-        log.debug("Successfully collected Spotify artist data: {}", artist);
+        log.trace("Successfully collected Spotify artist data: {}", artist);
         return artist;
     }
 

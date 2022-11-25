@@ -29,3 +29,7 @@ gazer:
     base-accounts-url: https://accounts.spotify.com
     base-api-url: https://api.spotify.com/v1
     releases-page-length: 50
+  flow:
+    run-on-startup: ${GAZER_FLOW_ON_STARTUP:false}
+    scheduler-cron: ${GAZER_FLOW_SCHEDULER_CRON:0 0 3 * * *}
+

@@ -28,7 +28,6 @@ public class NewReleasesFlowAdapter implements NewReleasesFlowPort {
 
     @Override
     public void run() {
-        log.info("Running new releases flow...");
         var count = retrieve.getNewReleases()
                 .map(NewReleases::albums)
                 .stream()
