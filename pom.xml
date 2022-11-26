@@ -10,7 +10,7 @@
     </parent>
     <groupId>org.codebusters.audiogeek</groupId>
     <artifactId>spotifygazer</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.1.0</version>
     <name>audiogeek-spotify-gazer</name>
     <description>AudioGeek Spotify Gazer: The Great Spy Of Spotify</description>
 
