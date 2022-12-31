@@ -1,0 +1,16 @@
+{
+  "id": "3",
+  "title": "album3",
+  "artists": [
+    {
+      "id": "3",
+      "name": "artist3"
+    }
+  ],
+  "releaseDate": "2002-01-01",
+  "genres": [
+    "genre3",
+    "genre1"
+  ],
+  "link": "album1.com"
+}

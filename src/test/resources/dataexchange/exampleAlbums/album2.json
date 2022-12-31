@@ -1,0 +1,19 @@
+{
+  "id": "2",
+  "title": "album2",
+  "artists": [
+    {
+      "id": "1",
+      "name": "artist1"
+    },
+    {
+      "id": "2",
+      "name": "artist2"
+    }
+  ],
+  "releaseDate": "2001-01-01",
+  "genres": [
+    "genre2"
+  ],
+  "link": "album1.com"
+}
