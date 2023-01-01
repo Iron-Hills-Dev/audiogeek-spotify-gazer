@@ -6,11 +6,10 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.codebusters.audiogeek.spotifygazer.domain.newreleases.NewReleasesFlowPort;
 import org.codebusters.audiogeek.spotifygazer.domain.newreleases.model.NewReleases;
 import org.codebusters.audiogeek.spotifygazer.infrastructure.db.repo.AlbumRepository;
+import org.codebusters.audiogeek.spotifygazer.infrastructure.db.repo.ArtistRepository;
+import org.codebusters.audiogeek.spotifygazer.infrastructure.db.repo.GenreRepository;
 import org.codebusters.audiogeek.spotifygazer.util.SpotifyServerMock;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
@@ -23,9 +22,11 @@ import static com.fasterxml.jackson.databind.SerializationFeature.WRITE_DATES_AS
 import static java.util.stream.Collectors.toSet;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.codebusters.audiogeek.spotifygazer.infrastructure.dataexchange.util.EntityUtils.convertToAlbum;
+import static org.junit.jupiter.api.TestInstance.Lifecycle.PER_CLASS;
 
 
 @SpringBootTest
+@TestInstance(PER_CLASS)
 @ActiveProfiles("test")
 class NewReleasesFlowAdapterDatabaseSpotifyTest {
     private static final File MODEL_FLOW_CORRECT = Path.of("src/test/resources/newreleases/flow/flow-correct.model.json").toFile();
@@ -35,12 +36,18 @@ class NewReleasesFlowAdapterDatabaseSpotifyTest {
     private static SpotifyServerMock spotifyServerMock;
 
     @Autowired
-    private NewReleasesFlowPort sut;
-    @Autowired
     private AlbumRepository albumRepo;
+    @Autowired
+    private ArtistRepository artistRepo;
+    @Autowired
+    private GenreRepository genreRepo;
+    @Autowired
+    private NewReleasesFlowPort sut;
 
     @BeforeAll
-    static void startWiremock() {
+    void startWiremockCleanDatabase() {
+        albumRepo.deleteAll();
+
         spotifyServerMock = new SpotifyServerMock();
         spotifyServerMock.start();
     }

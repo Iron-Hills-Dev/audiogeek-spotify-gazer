@@ -9,6 +9,7 @@ import org.codebusters.audiogeek.spotifygazer.infrastructure.db.repo.AlbumReposi
 import org.codebusters.audiogeek.spotifygazer.infrastructure.db.repo.ArtistRepository;
 import org.codebusters.audiogeek.spotifygazer.infrastructure.db.repo.GenreRepository;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -69,6 +70,7 @@ public class DatabaseDataQueryAdapterTest {
     }
 
     @Test
+    @DisplayName("getAlbums - check if sorting is correct")
     void getAllAlbumsSortTest() {
         var releaseDates = query.getAlbums(PageRequest.of(0, 5)).stream()
                 .map(Album::releaseDate)
@@ -80,6 +82,7 @@ public class DatabaseDataQueryAdapterTest {
     }
 
     @Test
+    @DisplayName("getAlbums - check if return data is correct")
     void getAllAlbumsCheckDataCorrectness() {
         var releaseDates = query.getAlbums(PageRequest.of(0, 5)).stream()
                 .sorted(comparing(Album::id)).toList();
@@ -87,6 +90,7 @@ public class DatabaseDataQueryAdapterTest {
     }
 
     @Test
+    @DisplayName("getAlbums (by genre) - check if sorting is correct")
     void getAlbumsByGenreSortTest() {
         var releaseDates = query.getAlbums(new GetAlbumsByGenreFilter(Set.of("genre1", "genre2", "genre3"), PageRequest.of(0, 5)))
                 .stream()
@@ -99,10 +103,11 @@ public class DatabaseDataQueryAdapterTest {
     }
 
     @ParameterizedTest
-    @CsvSource({"genre1", "genre2,genre3", "genre2", "genre1,genre3", "genre4"})
+    @CsvSource({"genre1", "genre2;genre3", "genre2", "genre1;genre3", "genre4"})
+    @DisplayName("getAlbums (by genre) - check if return data is correct")
     void getAlbumsByGenreDataCorrectness(String input) {
         // given
-        Set<String> genres = Stream.of(input.trim().split("\\s*,\\s*"))
+        Set<String> genres = Stream.of(input.trim().split("\\s*;\\s*"))
                 .collect(toSet());
 
         // when
