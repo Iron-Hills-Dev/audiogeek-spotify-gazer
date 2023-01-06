@@ -25,14 +25,14 @@ public class EntityUtils {
                 .build();
     }
 
-    public static Album convertToAlbum(AlbumEntity album, Set<ArtistEntity> artists, Set<GenreEntity> genres) {
+    public static Album convertToAlbum(AlbumEntity album) {
         return Album.builder()
                 .title(album.getTitle())
                 .id(album.getProviderId())
                 .link(URI.create(album.getProviderLink()))
                 .releaseDate(album.getReleaseDate())
-                .artists(convertToArtists(artists))
-                .genres(convertToGenres(genres))
+                .artists(convertToArtists(album.getArtists()))
+                .genres(convertToGenres(album.getGenres()))
                 .build();
     }
 

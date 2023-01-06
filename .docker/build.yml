@@ -1,0 +1,9 @@
+version: "3.4"
+services:
+  gazer:
+    build:
+      dockerfile: .docker/Dockerfile
+      context: ../
+    image: codebusters0/audiogeek-gazer:0.1.0
+
+
