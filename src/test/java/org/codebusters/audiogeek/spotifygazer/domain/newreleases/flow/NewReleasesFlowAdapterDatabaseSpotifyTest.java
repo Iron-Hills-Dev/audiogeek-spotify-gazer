@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.codebusters.audiogeek.spotifygazer.domain.newreleases.NewReleasesFlowPort;
 import org.codebusters.audiogeek.spotifygazer.domain.newreleases.model.NewReleases;
+import org.codebusters.audiogeek.spotifygazer.infrastructure.dataexchange.util.EntityUtils;
 import org.codebusters.audiogeek.spotifygazer.infrastructure.db.repo.AlbumRepository;
 import org.codebusters.audiogeek.spotifygazer.infrastructure.db.repo.ArtistRepository;
 import org.codebusters.audiogeek.spotifygazer.infrastructure.db.repo.GenreRepository;
@@ -21,12 +22,9 @@ import java.nio.file.Path;
 import static com.fasterxml.jackson.databind.SerializationFeature.WRITE_DATES_AS_TIMESTAMPS;
 import static java.util.stream.Collectors.toSet;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.codebusters.audiogeek.spotifygazer.infrastructure.dataexchange.util.EntityUtils.convertToAlbum;
-import static org.junit.jupiter.api.TestInstance.Lifecycle.PER_CLASS;
 
 
 @SpringBootTest
-@TestInstance(PER_CLASS)
 @ActiveProfiles("test")
 class NewReleasesFlowAdapterDatabaseSpotifyTest {
     private static final File MODEL_FLOW_CORRECT = Path.of("src/test/resources/newreleases/flow/flow-correct.model.json").toFile();
@@ -45,9 +43,7 @@ class NewReleasesFlowAdapterDatabaseSpotifyTest {
     private NewReleasesFlowPort sut;
 
     @BeforeAll
-    void startWiremockCleanDatabase() {
-        albumRepo.deleteAll();
-
+    static void startWiremock() {
         spotifyServerMock = new SpotifyServerMock();
         spotifyServerMock.start();
     }
@@ -55,6 +51,13 @@ class NewReleasesFlowAdapterDatabaseSpotifyTest {
     @AfterAll
     static void stopWiremock() {
         spotifyServerMock.stop();
+    }
+
+    @BeforeEach
+    void cleanDatabase() {
+        albumRepo.deleteAll();
+        artistRepo.deleteAll();
+        genreRepo.deleteAll();
     }
 
     @Test
@@ -68,7 +71,7 @@ class NewReleasesFlowAdapterDatabaseSpotifyTest {
 
         // then
         var releases = albumRepo.findAll().stream()
-                .map(a -> convertToAlbum(a, a.getArtists(), a.getGenres()))
+                .map(EntityUtils::convertToAlbum)
                 .collect(toSet());
         assertThat(releases)
                 .usingRecursiveComparison()

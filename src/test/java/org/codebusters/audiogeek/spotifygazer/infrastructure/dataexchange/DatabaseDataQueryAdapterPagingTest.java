@@ -8,9 +8,9 @@ import org.codebusters.audiogeek.spotifygazer.domain.newreleases.model.Artist;
 import org.codebusters.audiogeek.spotifygazer.infrastructure.db.repo.AlbumRepository;
 import org.codebusters.audiogeek.spotifygazer.infrastructure.db.repo.ArtistRepository;
 import org.codebusters.audiogeek.spotifygazer.infrastructure.db.repo.GenreRepository;
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.PageRequest;
@@ -23,10 +23,8 @@ import java.util.Set;
 import static java.util.stream.Collectors.toSet;
 import static java.util.stream.IntStream.rangeClosed;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.TestInstance.Lifecycle.PER_CLASS;
 
 @SpringBootTest
-@TestInstance(PER_CLASS)
 @ActiveProfiles("test")
 @Slf4j
 public class DatabaseDataQueryAdapterPagingTest {
@@ -41,7 +39,7 @@ public class DatabaseDataQueryAdapterPagingTest {
     @Autowired
     private DatabaseDataQueryAdapter query;
 
-    @BeforeAll
+    @BeforeEach
     void createDB() {
         albumRepo.deleteAll();
         artistRepo.deleteAll();
@@ -66,6 +64,7 @@ public class DatabaseDataQueryAdapterPagingTest {
     }
 
     @Test
+    @DisplayName("getAlbum - check if pagination works")
     void getAlbumIterate() {
         var albums = query.getAlbums(PageRequest.of(0, 10));
         int total = albums.getNumberOfElements();
@@ -77,6 +76,7 @@ public class DatabaseDataQueryAdapterPagingTest {
     }
 
     @Test
+    @DisplayName("getAlbum (by genre) - check if pagination works")
     void getAlbumByGenreIterate() {
         var albums = query.getAlbums(new GetAlbumsByGenreFilter(Set.of("genre2"), PageRequest.of(0, 5)));
         int total = albums.getNumberOfElements();

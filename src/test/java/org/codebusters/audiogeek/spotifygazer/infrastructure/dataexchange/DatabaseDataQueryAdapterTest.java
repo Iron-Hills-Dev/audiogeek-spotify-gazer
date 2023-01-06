@@ -8,10 +8,9 @@ import org.codebusters.audiogeek.spotifygazer.domain.newreleases.model.Album;
 import org.codebusters.audiogeek.spotifygazer.infrastructure.db.repo.AlbumRepository;
 import org.codebusters.audiogeek.spotifygazer.infrastructure.db.repo.ArtistRepository;
 import org.codebusters.audiogeek.spotifygazer.infrastructure.db.repo.GenreRepository;
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,10 +31,8 @@ import static com.fasterxml.jackson.databind.SerializationFeature.WRITE_DATES_AS
 import static java.util.Comparator.comparing;
 import static java.util.stream.Collectors.toSet;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.TestInstance.Lifecycle.PER_CLASS;
 
 @SpringBootTest
-@TestInstance(PER_CLASS)
 @ActiveProfiles("test")
 public class DatabaseDataQueryAdapterTest {
 
@@ -57,7 +54,7 @@ public class DatabaseDataQueryAdapterTest {
     private DatabaseDataQueryAdapter query;
 
 
-    @BeforeAll
+    @BeforeEach
     void createDB() throws IOException {
         albumRepo.deleteAll();
         artistRepo.deleteAll();
