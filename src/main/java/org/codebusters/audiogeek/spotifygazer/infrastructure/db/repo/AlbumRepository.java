@@ -16,7 +16,7 @@ public interface AlbumRepository extends JpaRepository<AlbumEntity, UUID> {
     Optional<AlbumEntity> findByTitleAndReleaseDate(String title, LocalDate releaseDate);
 
     @Query("SELECT a FROM AlbumEntity a ORDER BY a.releaseDate DESC")
-    Page<AlbumEntity> findAll(Pageable pageable);
+    Page<AlbumEntity> findAllOrderByReleaseDate(Pageable pageable);
 
     @Query("SELECT DISTINCT a FROM AlbumEntity a INNER JOIN a.genres g WHERE g.name IN :genres ORDER BY a.releaseDate DESC")
     Page<AlbumEntity> findByGenres(@Param("genres") Set<String> genres, Pageable pageable);

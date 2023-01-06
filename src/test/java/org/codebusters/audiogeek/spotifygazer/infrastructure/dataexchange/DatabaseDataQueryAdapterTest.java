@@ -34,7 +34,7 @@ import static java.util.stream.Collectors.toSet;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.TestInstance.Lifecycle.PER_CLASS;
 
-@SpringBootTest()
+@SpringBootTest
 @TestInstance(PER_CLASS)
 @ActiveProfiles("test")
 public class DatabaseDataQueryAdapterTest {
@@ -121,7 +121,5 @@ public class DatabaseDataQueryAdapterTest {
 
         // then
         assertThat(releases).usingRecursiveComparison().isEqualTo(correct);
-
     }
-
 }
