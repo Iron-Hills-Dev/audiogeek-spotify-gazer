@@ -1,5 +1,8 @@
 server:
   port: ${GAZER_PORT:6000}
+  error:
+    whitelabel:
+      enabled: false
 
 logging:
   level:
@@ -21,6 +24,8 @@ spring:
       ddl-auto: update
     database-platform: org.hibernate.dialect.PostgreSQL95Dialect
     show-sql: false
+  mvc:
+    throw-exception-if-no-handler-found: true
 
 gazer:
   spotify:
@@ -33,4 +38,9 @@ gazer:
     run-on-startup: ${GAZER_FLOW_ON_STARTUP:false}
     scheduler-cron: ${GAZER_FLOW_SCHEDULER_CRON:0 0 3 * * *}
   app:
-    max-page-size: ${GAZER_MAX_PAGE_SIZE:20}
+    get-releases:
+      max-page-size: ${GAZER_RELEASES_MAX_PAGE_SIZE:20}
+      max-genre-length: ${GAZER_RELEASES_MAX_GENRE_SIZE:50}
+      max-genres-size: ${GAZER_RELEASES_MAX_GENRES_AMOUNT:30}
+      char-whitelist: ${GAZER_RELEASES_CHAR_WHITELIST:[]}
+      char-blacklist: ${GAZER_RELEASES_CHAR_BLACKLIST:[]}

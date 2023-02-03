@@ -1,0 +1,31 @@
+{
+  "albums": [
+    {
+      "title": "Only the Strong Survive",
+      "artists": [
+        "Bruce Springsteen"
+      ],
+      "releaseDate": "2022-11-11",
+      "genres": [
+        "rock",
+        "classic rock"
+      ],
+      "link": "https://open.spotify.com/album/4XJaXh57G3rZtAzqeVZSfn"
+    },
+    {
+      "title": "EVERY LOSER",
+      "artists": [
+        "Iggy Pop"
+      ],
+      "releaseDate": "2023-01-06",
+      "genres": [
+        "rock",
+        "punk"
+      ],
+      "link": "https://open.spotify.com/album/62VSZ71LvrUh1VoSuPgzXd"
+    }
+  ],
+  "page": 0,
+  "size": 2,
+  "total": 6
+}

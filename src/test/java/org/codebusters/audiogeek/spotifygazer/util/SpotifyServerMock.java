@@ -14,20 +14,24 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 public class SpotifyServerMock {
 
     public static final String TOKEN = "BQAA6McbzgjrF4gSYIEawz9WJWckkb-YhR2yaM74Knnu3uUNfH_fLkMXsEFv75pnWXGJO8J5Cm5CQskwSqOob-EBPOKnhWl_yJ-Ez0qr7N7aeixvcO4";
-    private static final Path GET_TOKEN_CORRECT_RESPONSE = Path.of("src/test/resources/spotify/connection/get-token/correct-token.response.json");
-    private static final Path GET_TOKEN_WRONG_CREDS_RESPONSE = Path.of("src/test/resources/spotify/connection/get-token/get-token-wrong-creds.response.json");
-    private static final Path NEW_RELEASES_CORRECT_0_1_RESPONSE = Path.of("src/test/resources/spotify/connection/new-releases/new-releases-correct-0-1.response.json");
-    private static final Path NEW_RELEASES_CORRECT_0_2_RESPONSE = Path.of("src/test/resources/spotify/connection/new-releases/new-releases-correct-0-2.response.json");
-    private static final Path NEW_RELEASES_CORRECT_2_2_RESPONSE = Path.of("src/test/resources/spotify/connection/new-releases/new-releases-correct-2-2.response.json");
-    private static final Path NEW_RELEASES_CORRECT_3_2_RESPONSE = Path.of("src/test/resources/spotify/connection/new-releases/new-releases-correct-3-2.response.json");
-    private static final Path NEW_RELEASES_WRONG_LIMIT_RESPONSE = Path.of("src/test/resources/spotify/connection/new-releases/new-releases-wrong-limit.response.json");
-    private static final Path GET_ARTIST_DJKHALED_RESPONSE = Path.of("src/test/resources/spotify/connection/get-artist/correct-djkhaled.response.json");
-    private static final Path GET_ARTIST_5_SEC_RESPONSE = Path.of("src/test/resources/spotify/connection/get-artist/correct-5-sec.response.json");
-    private static final Path GET_ARTIST_CHIVAS_RESPONSE = Path.of("src/test/resources/spotify/connection/get-artist/correct-chivas.response.json");
-    private static final Path GET_ARTIST_KARAS_ROGUCKI_RESPONSE = Path.of("src/test/resources/spotify/connection/get-artist/correct-karas-rogucki.response.json");
-    private static final Path GET_ARTIST_LUCASSI_RESPONSE = Path.of("src/test/resources/spotify/connection/get-artist/correct-lucassi.response.json");
-    private static final Path GET_ARTIST_SEVEN_PHOENIX_RESPONSE = Path.of("src/test/resources/spotify/connection/get-artist/correct-seven-phoenix.response.json");
-    private static final Path GET_ARTIST_INVALID_ID_RESPONSE = Path.of("src/test/resources/spotify/connection/get-artist/get-artist-invalid-id.response.json");
+
+    private static final String PATH_PREFIX = "src/test/resources/spotify/connection/";
+
+    private static final Path GET_TOKEN_CORRECT_RESPONSE = Path.of(PATH_PREFIX + "get-token/correct-token.response.json");
+    private static final Path GET_TOKEN_WRONG_CREDS_RESPONSE = Path.of(PATH_PREFIX + "get-token/get-token-wrong-creds.response.json");
+    private static final Path NEW_RELEASES_CORRECT_0_1_RESPONSE = Path.of(PATH_PREFIX + "new-releases/new-releases-correct-0-1.response.json");
+    private static final Path NEW_RELEASES_CORRECT_0_2_RESPONSE = Path.of(PATH_PREFIX + "new-releases/new-releases-correct-0-2.response.json");
+    private static final Path NEW_RELEASES_CORRECT_2_2_RESPONSE = Path.of(PATH_PREFIX + "new-releases/new-releases-correct-2-2.response.json");
+    private static final Path NEW_RELEASES_CORRECT_3_2_RESPONSE = Path.of(PATH_PREFIX + "new-releases/new-releases-correct-3-2.response.json");
+    private static final Path NEW_RELEASES_WRONG_LIMIT_RESPONSE = Path.of(PATH_PREFIX + "new-releases/new-releases-wrong-limit.response.json");
+    private static final Path GET_ARTIST_DJKHALED_RESPONSE = Path.of(PATH_PREFIX + "get-artist/correct-djkhaled.response.json");
+    private static final Path GET_ARTIST_5_SEC_RESPONSE = Path.of(PATH_PREFIX + "get-artist/correct-5-sec.response.json");
+    private static final Path GET_ARTIST_CHIVAS_RESPONSE = Path.of(PATH_PREFIX + "get-artist/correct-chivas.response.json");
+    private static final Path GET_ARTIST_KARAS_ROGUCKI_RESPONSE = Path.of(PATH_PREFIX + "get-artist/correct-karas-rogucki.response.json");
+    private static final Path GET_ARTIST_LUCASSI_RESPONSE = Path.of(PATH_PREFIX + "get-artist/correct-lucassi.response.json");
+    private static final Path GET_ARTIST_SEVEN_PHOENIX_RESPONSE = Path.of(PATH_PREFIX + "get-artist/correct-seven-phoenix.response.json");
+    private static final Path GET_ARTIST_INVALID_ID_RESPONSE = Path.of(PATH_PREFIX + "get-artist/get-artist-invalid-id.response.json");
+
     private static final String AUTHORIZATION_HEADER_TITLE = "Authorization";
     private static final String AUTHORIZATION_HEADER_BEARER_VALUE = "Bearer " + TOKEN;
     private static final String CONTENT_TYPE_HEADER_TITLE = "Content-Type";
