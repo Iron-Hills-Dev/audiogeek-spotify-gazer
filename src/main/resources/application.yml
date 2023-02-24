@@ -42,5 +42,5 @@ gazer:
       max-page-size: ${GAZER_RELEASES_MAX_PAGE_SIZE:20}
       max-genre-length: ${GAZER_RELEASES_MAX_GENRE_SIZE:50}
       max-genres-size: ${GAZER_RELEASES_MAX_GENRES_AMOUNT:30}
-      char-whitelist: ${GAZER_RELEASES_CHAR_WHITELIST:[]}
-      char-blacklist: ${GAZER_RELEASES_CHAR_BLACKLIST:[]}
+      char-whitelist: ${GAZER_RELEASES_CHAR_WHITELIST:}
+      char-blacklist: ${GAZER_RELEASES_CHAR_BLACKLIST:}

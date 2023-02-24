@@ -1,6 +1,7 @@
 package org.codebusters.audiogeek.spotifygazer.application.rest.exception;
 
 import lombok.extern.slf4j.Slf4j;
+import org.codebusters.audiogeek.spotifygazer.application.rest.getreleases.exception.GetReleasesApiException;
 import org.codebusters.audiogeek.spotifygazer.application.rest.util.ErrorResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -17,6 +18,12 @@ import static org.springframework.http.ResponseEntity.status;
 @Slf4j
 class GlobalExceptionHandler {
 
+    @ExceptionHandler(GetReleasesApiException.class)
+    private ResponseEntity<ErrorResponse> apiExceptionHandler(GetReleasesApiException err) {
+        return status(err.getHttpStatus())
+                .body(new ErrorResponse(err.getCode(), err.getMessage()));
+    }
+
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)
     private ResponseEntity<ErrorResponse> wrongArgumentType(MethodArgumentTypeMismatchException err) {
         log.error("Argument type mismatch: name=%s, parameter=%s, value=%s".formatted(err.getName(), err.getParameter(), err.getValue()));
@@ -24,7 +31,6 @@ class GlobalExceptionHandler {
                 .body(new ErrorResponse(ARGUMENT_TYPE_MISMATCH.getCode(),
                         ARGUMENT_TYPE_MISMATCH.getMessage().formatted(err.getName(), err.getRequiredType())));
     }
-
 
     @ExceptionHandler(NoHandlerFoundException.class)
     private ResponseEntity<ErrorResponse> noEndpointFound(NoHandlerFoundException err) {
@@ -46,5 +52,4 @@ class GlobalExceptionHandler {
         return status(UNHANDLED_ERROR.getHttpStatus())
                 .body(new ErrorResponse(UNHANDLED_ERROR.getCode(), UNHANDLED_ERROR.getMessage()));
     }
-
 }
