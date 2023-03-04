@@ -43,7 +43,8 @@ class GetReleasesRestAdapter {
                 .size(size)
                 .total(total)
                 .build();
-        log.debug("Successfully processed request: response={}", response);
+        log.info("Successfully processed request");
+        log.debug("Response details: {}", response);
         return ok(response);
     }
 

@@ -1,4 +1,4 @@
-# AudioGeek Spotify Gazer: The Great Spy Of Spotify
+# AudioGeek<sup>TM</sup> Spotify Gazer: The Great Spy Of Spotify
 ## How to use dockerized Spotify Gazer (DEV)
 
 ### Prerequisites

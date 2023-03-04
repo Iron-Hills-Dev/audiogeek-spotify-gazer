@@ -2,7 +2,6 @@ package org.codebusters.audiogeek.spotifygazer.application.rest.exception;
 
 import lombok.extern.slf4j.Slf4j;
 import org.codebusters.audiogeek.spotifygazer.application.rest.getreleases.exception.GetReleasesApiException;
-import org.codebusters.audiogeek.spotifygazer.application.rest.util.ErrorResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
