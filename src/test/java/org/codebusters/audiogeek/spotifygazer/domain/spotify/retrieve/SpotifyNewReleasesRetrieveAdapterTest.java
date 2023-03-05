@@ -30,12 +30,12 @@ import static org.mockito.Mockito.doThrow;
 @SpringBootTest
 @ActiveProfiles("test")
 class SpotifyNewReleasesRetrieveAdapterTest {
-
-    private static final Path NEW_RELEASES_CORRECT_MODEL = Path.of("src/test/resources/spotify/retrieve/get-releases-correct.model.json");
-    private static final Path NEW_RELEASES_CORRUPTED_RELEASES_MODEL = Path.of("src/test/resources/spotify/retrieve/get-releases-corrupted.model.json");
-    private static final Path GET_NEW_RELEASES_CORRUPTED_RESPONSE = Path.of("src/test/resources/spotify/connection/new-releases/new-releases-corrupted-0-2.response.json");
-    private static final Path NEW_RELEASES_CORRUPTED_ALBUM_MODEL = Path.of("src/test/resources/spotify/retrieve/get-releases-corrupted-album.model.json");
-    private static final Path NEW_RELEASES_ARTIST_ERROR_MODEL = Path.of("src/test/resources/spotify/retrieve/get-releases-artist-error.model.json");
+    private static final String PATH_PREFIX = "src/test/resources/spotify/retrieve/";
+    private static final Path NEW_RELEASES_CORRECT_MODEL = Path.of(PATH_PREFIX + "get-releases-correct.model.json");
+    private static final Path NEW_RELEASES_CORRUPTED_RELEASES_MODEL = Path.of(PATH_PREFIX + "get-releases-corrupted.model.json");
+    private static final Path GET_NEW_RELEASES_CORRUPTED_RESPONSE = Path.of(PATH_PREFIX + "new-releases-corrupted-0-2.response.json");
+    private static final Path NEW_RELEASES_CORRUPTED_ALBUM_MODEL = Path.of(PATH_PREFIX + "get-releases-corrupted-album.model.json");
+    private static final Path NEW_RELEASES_ARTIST_ERROR_MODEL = Path.of(PATH_PREFIX + "get-releases-artist-error.model.json");
     private static final ObjectMapper MAPPER = new ObjectMapper()
             .registerModule(new JavaTimeModule())
             .disable(WRITE_DATES_AS_TIMESTAMPS);

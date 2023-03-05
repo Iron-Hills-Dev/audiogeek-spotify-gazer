@@ -21,3 +21,13 @@ gazer:
     base-accounts-url: http://localhost:9999
     base-api-url: http://localhost:9999/v1
     releases-page-length: 2
+  flow:
+    run-on-startup: false
+    scheduler-cron: 0 0 3 * * *
+  app:
+    get-releases:
+      max-page-size: 20
+      max-genre-length: 10
+      max-genres-size: 5
+      char-whitelist: []
+      char-blacklist: []
