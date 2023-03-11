@@ -1,12 +1,12 @@
 package org.codebusters.audiogeek.spotifygazer.infrastructure.db;
 
+import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.codebusters.audiogeek.spotifygazer.domain.newreleases.model.Artist;
 
-import javax.persistence.*;
 import java.util.UUID;
 
 @Entity
