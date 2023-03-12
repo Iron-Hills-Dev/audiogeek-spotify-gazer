@@ -1,10 +1,10 @@
 package org.codebusters.audiogeek.spotifygazer.application.flowrunner;
 
+import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.codebusters.audiogeek.spotifygazer.domain.newreleases.NewReleasesFlowPort;
 
-import javax.annotation.PostConstruct;
 
 @Slf4j
 @RequiredArgsConstructor

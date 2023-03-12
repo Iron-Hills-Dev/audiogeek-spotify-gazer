@@ -1,14 +1,15 @@
 package org.codebusters.audiogeek.spotifygazer.infrastructure.db;
 
+import jakarta.persistence.*;
 import lombok.*;
 
-import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.Set;
 import java.util.UUID;
 
-import static javax.persistence.CascadeType.PERSIST;
-import static javax.persistence.FetchType.EAGER;
+import static jakarta.persistence.CascadeType.PERSIST;
+import static jakarta.persistence.FetchType.EAGER;
+
 
 @Entity
 @Builder
