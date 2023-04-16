@@ -4,6 +4,6 @@ services:
     build:
       dockerfile: .docker/Dockerfile
       context: ../
-    image: codebusters0/audiogeek-gazer:0.1.0
+    image: codebusters0/audiogeek-gazer:1.0.0
 
 
